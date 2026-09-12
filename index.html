@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gonzalo Recio — AI Engineer &amp; Data Scientist</title>
-  <meta name="description" content="Gonzalo Recio Domènech — AI Engineer & Data Scientist based in Barcelona. LLM agents, deep learning, computer vision and combinatorial optimization." />
+  <title>Gonzalo Recio — Lead AI Engineer &amp; Data Scientist</title>
+  <meta name="description" content="Gonzalo Recio Domènech — Lead AI Engineer & Data Scientist based in Barcelona. LLM agents, deep learning, computer vision and combinatorial optimization." />
   <meta name="author" content="Gonzalo Recio Domènech" />
   <meta name="color-scheme" content="dark light" />
   <meta name="theme-color" content="#080d18" />
@@ -13,7 +13,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%A0%3C/text%3E%3C/svg%3E" />
   <link rel="apple-touch-icon" href="https://avatars.githubusercontent.com/u/12600577?v=4" />
 
-  <meta property="og:title" content="Gonzalo Recio — AI Engineer &amp; Data Scientist" />
+  <meta property="og:title" content="Gonzalo Recio — Lead AI Engineer &amp; Data Scientist" />
   <meta property="og:description" content="LLM agents, deep learning, computer vision and optimization. Based in Barcelona." />
   <meta property="og:type" content="profile" />
   <meta property="og:url" content="https://gonzalorecio.github.io/" />
@@ -32,7 +32,7 @@
     "name": "Gonzalo Recio Domènech",
     "url": "https://gonzalorecio.github.io/",
     "image": "https://avatars.githubusercontent.com/u/12600577?v=4",
-    "jobTitle": "AI Engineer & Data Scientist",
+    "jobTitle": "Lead AI Engineer & Data Scientist",
     "worksFor": { "@type": "Organization", "name": "Valeria" },
     "address": { "@type": "PostalAddress", "addressLocality": "Barcelona", "addressCountry": "ES" },
     "alumniOf": { "@type": "CollegeOrUniversity", "name": "Universitat Politècnica de Catalunya (UPC)" },
@@ -108,14 +108,16 @@ ul{margin:0;padding:0}
 }
 .bg::after{content:"";position:absolute;inset:0;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .blobs{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
-.blob{position:absolute;border-radius:999px;filter:blur(90px);opacity:.28;transform:translate(-50%,-50%)}
+/* Translate-only drift: scaling a blurred layer forces a full re-raster every
+   frame, which is what makes big blurred backgrounds stutter while scrolling. */
+.blob{position:absolute;border-radius:999px;filter:blur(90px);opacity:.28;transform:translate(-50%,-50%);will-change:transform}
 .blob.b1{width:46vmax;height:46vmax;left:16%;top:20%;background:radial-gradient(closest-side,rgba(99,102,241,.72),transparent 70%);animation:drift1 22s ease-in-out infinite}
 .blob.b2{width:40vmax;height:40vmax;left:86%;top:12%;background:radial-gradient(closest-side,rgba(56,189,248,.55),transparent 70%);animation:drift2 26s ease-in-out infinite}
 .blob.b3{width:50vmax;height:50vmax;left:64%;top:84%;background:radial-gradient(closest-side,rgba(52,211,153,.40),transparent 70%);animation:drift3 30s ease-in-out infinite}
 html[data-theme="light"] .blob{opacity:.18}
-@keyframes drift1{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-42%,-56%) scale(1.14)}}
-@keyframes drift2{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-58%,-42%) scale(1.1)}}
-@keyframes drift3{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-44%,-58%) scale(1.18)}}
+@keyframes drift1{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-40%,-58%)}}
+@keyframes drift2{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-60%,-40%)}}
+@keyframes drift3{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-42%,-60%)}}
 
 /* ─────────────────────────  Layout primitives  ───────────────────────── */
 .container{max-width:var(--maxw);margin:0 auto;padding:0 22px}
@@ -178,7 +180,7 @@ header.scrolled{border-bottom-color:var(--line)}
 .meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:20px;font-size:13.5px;color:var(--muted)}
 
 .avatar-wrap{position:relative;width:168px;margin-inline:auto}
-.avatar-wrap::before{content:"";position:absolute;inset:-10px;border-radius:999px;background:conic-gradient(from 180deg,var(--accent),var(--accent-2),var(--accent-3),var(--accent));filter:blur(16px);opacity:.55;animation:spin 14s linear infinite}
+.avatar-wrap::before{content:"";position:absolute;inset:-10px;border-radius:999px;background:conic-gradient(from 180deg,var(--accent),var(--accent-2),var(--accent-3),var(--accent));filter:blur(16px);opacity:.55;will-change:transform;animation:spin 14s linear infinite}
 @keyframes spin{to{transform:rotate(1turn)}}
 .avatar{position:relative;width:168px;height:168px;border-radius:999px;object-fit:cover;border:3px solid color-mix(in srgb,var(--bg) 82%,#fff);box-shadow:var(--shadow)}
 .side{display:flex;flex-direction:column;gap:20px}
@@ -208,16 +210,6 @@ html[data-theme="light"] .term{background:#fff}
 .bullets{list-style:none;display:grid;gap:10px;margin-top:16px}
 .bullets li{position:relative;padding-left:22px;font-size:14.5px;color:var(--ink-soft)}
 .bullets li::before{content:"▸";position:absolute;left:0;top:-1px;color:var(--accent);font-size:13px}
-
-.proj{display:flex;flex-direction:column;height:100%}
-.proj .top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.proj .ico{font-size:20px;line-height:1}
-.proj h3{margin:0;font-size:15.5px}
-.proj p{color:var(--muted);font-size:14px;flex:1}
-.proj .stack{margin-top:14px}
-.arrow{margin-left:auto;color:var(--muted);transition:transform .2s,color .2s}
-.proj:hover .arrow,.feature:hover .arrow{transform:translate(3px,-3px);color:var(--accent)}
-
 /* ─────────────────────────  Stack section  ───────────────────────── */
 .stack-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
 .stack-card h3{display:flex;align-items:center;gap:9px;font:600 13px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:14px}
@@ -289,7 +281,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
     <div class="reveal">
       <div class="status"><span class="dot"></span> currently working on LLM agents</div>
       <h1 class="h1">Gonzalo Recio <span class="grad">Domènech</span></h1>
-      <p class="role soft">AI Engineer &amp; Data Scientist <span class="muted">@</span> <span class="grad">Valeria</span></p>
+      <p class="role soft">Lead AI Engineer &amp; Data Scientist <span class="muted">@</span> <span class="grad">Valeria</span></p>
       <p class="lede">I work on machine learning and, lately, on LLM agents that run in production. Before that: computer vision, time series and a fair amount of combinatorial optimization. I like problems where the research is interesting and someone actually ends up using the result.</p>
       <div class="stack" style="margin-top:22px">
         <span class="chip">🤖 LLM Agents</span>
@@ -321,11 +313,11 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
         <div class="term-body">
 <div><span class="tk-dim">&gt;&gt;&gt;</span> me.fit(curiosity, epochs=<span class="tk-str">"∞"</span>)</div>
 <div> </div>
-<div><span class="tk-num">2016</span>  simulation &amp; operations research</div>
-<div><span class="tk-num">2019</span>  deep learning, time series</div>
-<div><span class="tk-num">2021</span>  computer vision, optimization</div>
-<div><span class="tk-num">2023</span>  generative ai</div>
-<div><span class="tk-num">2025</span>  llm agents in production</div>
+<div>epoch <span class="tk-num">2016</span>: 100%|<span class="tk-str">████████</span>| simulation &amp; OR</div>
+<div>epoch <span class="tk-num">2019</span>: 100%|<span class="tk-str">████████</span>| deep learning</div>
+<div>epoch <span class="tk-num">2021</span>: 100%|<span class="tk-str">████████</span>| computer vision</div>
+<div>epoch <span class="tk-num">2023</span>: 100%|<span class="tk-str">████████</span>| generative AI</div>
+<div>epoch <span class="tk-num" id="epYear">2026</span>: <span id="epPct"> 70%</span>|<span class="tk-str" id="epBar">█████▌</span><span class="tk-dim" id="epPad">  </span>| llm agents</div>
 <div> </div>
 <div><span class="tk-dim">&gt;&gt;&gt;</span> <span class="tk-dim"># still training, no early stopping</span></div>
         </div>
@@ -372,7 +364,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
         <div class="feature-main">
           <span class="badge" style="color:var(--accent-2);border-color:color-mix(in srgb,var(--accent-2) 35%,transparent);background:color-mix(in srgb,var(--accent-2) 12%,transparent)">Recurring theme</span>
           <h3>Getting research out of the paper</h3>
-          <p class="muted" style="margin-top:10px;font-size:14.5px">A lot of my work has been reading something promising and finding out what it takes to make it run on real data — three years of it inside <strong class="soft">CaixaBank Tech</strong>'s AI &amp; Innovation unit. The gap between a published result and a working prototype is where I've learned the most.</p>
+          <p class="muted" style="margin-top:10px;font-size:14.5px">A lot of my work has been reading something promising and finding out what it takes to make it run on real data. Several years of that, much of it in enterprise R&amp;D. The gap between a published result and a working prototype is where I've learned the most.</p>
           <ul class="bullets">
             <li>NL2SQL, so non-technical teams could ask questions of a warehouse in plain language.</li>
             <li>Agentic workflows for multi-step internal processes.</li>
@@ -413,51 +405,6 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
         </div>
       </article>
 
-      <!-- Open source grid -->
-      <div class="reveal" style="margin:52px 0 22px">
-        <div class="eyebrow">Open source</div>
-        <h2 class="h2" style="margin-bottom:10px">A few public repos</h2>
-        <p class="muted" style="max-width:62ch;font-size:15.5px">Mostly experiments, side projects and coursework. Nothing polished — left public in case any of it is useful to someone.</p>
-      </div>
-      <div class="grid g3">
-
-        <a class="card proj reveal" href="https://github.com/gonzalorecio/MNIST-latent-representations" target="_blank" rel="noreferrer noopener">
-          <div class="top"><span class="ico">🔬</span><h3>MNIST Latent Representations</h3><span class="arrow">↗</span></div>
-          <p>Dimensionality reduction and latent-space geometry compared head to head: plain autoencoders, CNNs, VAEs and classical projections.</p>
-          <div class="stack"><span class="tag">PyTorch</span><span class="tag">VAE</span><span class="tag">CNN</span></div>
-        </a>
-
-        <a class="card proj reveal" style="transition-delay:.05s" href="https://github.com/gonzalorecio/Deep-Reinforcement-Learning-Open-domain-chatbot" target="_blank" rel="noreferrer noopener">
-          <div class="top"><span class="ico">💬</span><h3>Deep RL Open-Domain Chatbot</h3><span class="arrow">↗</span></div>
-          <p>Conversational agent fine-tuned with deep reinforcement learning — rewarding coherence and engagement instead of raw likelihood.</p>
-          <div class="stack"><span class="tag">RL</span><span class="tag">NLP</span><span class="tag">Dialogue</span></div>
-        </a>
-
-        <a class="card proj reveal" style="transition-delay:.1s" href="https://github.com/gonzalorecio/insect-detection-demo-app" target="_blank" rel="noreferrer noopener">
-          <div class="top"><span class="ico">🐞</span><h3>Insect Detection App</h3><span class="arrow">↗</span></div>
-          <p>Automatic counting of insects (whiteflies included) on sticky traps — object detection wrapped in a small demo app.</p>
-          <div class="stack"><span class="tag">YOLO</span><span class="tag">Vision</span><span class="tag">Python</span></div>
-        </a>
-
-        <a class="card proj reveal" href="https://github.com/gonzalorecio/Protein-Docking-Poses-Consensus-Essence-Ligand-Encoding" target="_blank" rel="noreferrer noopener">
-          <div class="top"><span class="ico">🧬</span><h3>Protein Docking Consensus</h3><span class="arrow">↗</span></div>
-          <p>Consensus scoring across docking poses using an essence-based ligand encoding — ML applied to structural bioinformatics.</p>
-          <div class="stack"><span class="tag">Bioinformatics</span><span class="tag">ML</span></div>
-        </a>
-
-        <a class="card proj reveal" style="transition-delay:.05s" href="https://github.com/gonzalorecio/logistics-optimizer" target="_blank" rel="noreferrer noopener">
-          <div class="top"><span class="ico">🚚</span><h3>Logistics Optimizer</h3><span class="arrow">↗</span></div>
-          <p>Routing and fleet-assignment experiments where constraint programming meets metaheuristics on messy real-world instances.</p>
-          <div class="stack"><span class="tag">VRP</span><span class="tag">CP</span><span class="tag">Heuristics</span></div>
-        </a>
-
-        <a class="card proj reveal" style="transition-delay:.1s" href="https://github.com/gonzalorecio?tab=repositories" target="_blank" rel="noreferrer noopener">
-          <div class="top"><span class="ico">📦</span><h3>More on GitHub</h3><span class="arrow">↗</span></div>
-          <p>Deep learning, object recognition, human language engineering, unsupervised and reinforcement learning — most of the MSc in AI, left in public.</p>
-          <div class="stack"><span class="tag">github.com/gonzalorecio</span></div>
-        </a>
-
-      </div>
     </div>
   </section>
 
@@ -670,6 +617,32 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
   var y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
 
+  /* ── Current epoch in the terminal card: a tqdm-style bar showing how far
+        through the current year we actually are. Keeps itself honest. ── */
+  (function drawEpoch() {
+    var bar = document.getElementById('epBar');
+    var pad = document.getElementById('epPad');
+    var pct = document.getElementById('epPct');
+    var yr = document.getElementById('epYear');
+    if (!bar || !pad || !pct || !yr) return;
+
+    var now = new Date();
+    var start = new Date(now.getFullYear(), 0, 1);
+    var end = new Date(now.getFullYear() + 1, 0, 1);
+    var frac = (now - start) / (end - start);
+
+    var CELLS = 8;
+    var EIGHTHS = ['', '▏', '▎', '▍', '▌', '▋', '▊', '▉'];
+    var filled = frac * CELLS;
+    var full = Math.floor(filled);
+    var part = EIGHTHS[Math.floor((filled - full) * 8)];
+
+    yr.textContent = now.getFullYear();
+    pct.textContent = ('   ' + Math.floor(frac * 100) + '%').slice(-4);
+    bar.textContent = new Array(full + 1).join('█') + part;
+    pad.textContent = new Array(Math.max(0, CELLS - full - (part ? 1 : 0)) + 1).join(' ');
+  })();
+
   /* ── Theme toggle (remembers choice, defaults to system) ── */
   var root = document.documentElement;
   var btn = document.getElementById('themeBtn');
@@ -705,11 +678,45 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
     if (!stored) paint(e.matches ? 'light' : 'dark');
   });
 
-  /* ── Header border on scroll ── */
+  /* ── Nav links, in document order ── */
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
+  var targets = links
+    .map(function (a) { return { link: a, el: document.querySelector(a.getAttribute('href')) }; })
+    .filter(function (t) { return t.el; })
+    .sort(function (a, b) { return a.el.offsetTop - b.el.offsetTop; });
+
   var hdr = document.getElementById('hdr');
-  function onScroll() { hdr.classList.toggle('scrolled', window.scrollY > 8); }
-  onScroll();
+
+  /* ── Scroll handling: header border + active nav link.
+        Position-based rather than observer-based, so the highlight is
+        always correct no matter how fast you scroll or which way. ── */
+  function sync() {
+    var y = window.scrollY;
+    hdr.classList.toggle('scrolled', y > 8);
+
+    var line = y + 110; // just below the sticky header
+    var current = null;
+    for (var i = 0; i < targets.length; i++) {
+      if (targets[i].el.getBoundingClientRect().top + y <= line) current = targets[i];
+    }
+    // Pin the last section once we've hit the bottom of the page.
+    if (targets.length && y + window.innerHeight >= document.documentElement.scrollHeight - 2) {
+      current = targets[targets.length - 1];
+    }
+    for (var j = 0; j < links.length; j++) {
+      links[j].classList.toggle('active', !!current && links[j] === current.link);
+    }
+  }
+
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { ticking = false; sync(); });
+  }
+  sync();
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
 
   /* ── Reveal on scroll ── */
   var items = document.querySelectorAll('.reveal');
@@ -727,23 +734,6 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
     Array.prototype.forEach.call(items, function (el) { io.observe(el); });
   }
 
-  /* ── Active nav link ── */
-  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
-  var sections = links
-    .map(function (a) { return document.querySelector(a.getAttribute('href')); })
-    .filter(Boolean);
-
-  if ('IntersectionObserver' in window && sections.length) {
-    var spy = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        links.forEach(function (a) {
-          a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
-        });
-      });
-    }, { rootMargin: '-45% 0px -50% 0px' });
-    sections.forEach(function (s) { spy.observe(s); });
-  }
 })();
 </script>
 </body>
