@@ -238,6 +238,7 @@ html[data-theme="light"] .t4{color:#be185d}
 .graph .node.on .nbox{fill:color-mix(in srgb,var(--accent) 62%,transparent);stroke:var(--accent)}
 .graph .node.on .nlabel{fill:var(--ink)}
 .graph .edge.on{stroke:var(--accent-2);stroke-width:2}
+.graph .edge.dashed{stroke-dasharray:3 3}
 .graph .node .nbox,.graph .edge{transition:fill .25s,stroke .25s,stroke-width .25s}
 
 /* Gradient descent on a narrow valley — the classic zig-zag picture. */
@@ -427,10 +428,10 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
           </ul>
         </div>
         <div class="feature-side">
-          <p class="side-label">One request, routed</p>
+          <p class="side-label">The agent loop</p>
           <svg class="graph" id="agentGraph" viewBox="0 0 260 330" role="img"
                aria-label="A request travels from the user through a router to one specialist agent, then to tools, a human gate, and back as a reply."></svg>
-          <p class="gd-read"><span class="tk-dim">routed to</span> <span id="agRoute">—</span></p>
+          <p class="gd-read"><span class="tk-dim">trace</span> <span id="agRoute">—</span></p>
           <p class="side-label" style="margin-top:16px">Usually with</p>
           <div class="stack">
             <span class="tag">Python</span><span class="tag">LangChain</span><span class="tag">Claude</span>
@@ -805,26 +806,40 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
     var readout = document.getElementById('agRoute');
 
     var N = {
-      user:    { x: 130, y: 22,  w: 84, label: 'user message' },
-      router:  { x: 130, y: 84,  w: 66, label: 'router' },
-      intake:  { x: 44,  y: 152, w: 68, label: 'intake' },
-      payroll: { x: 130, y: 152, w: 68, label: 'payroll' },
-      docs:    { x: 216, y: 152, w: 68, label: 'docs' },
-      tools:   { x: 130, y: 218, w: 80, label: 'tools · db' },
-      gate:    { x: 130, y: 266, w: 84, label: 'human gate' },
-      reply:   { x: 130, y: 310, w: 66, label: 'reply' }
+      user:    { x: 108, y: 22,  w: 92, label: 'user message' },
+      reason:  { x: 108, y: 80,  w: 72, label: 'reason' },
+      act:     { x: 108, y: 138, w: 88, label: 'choose tool' },
+      tool:    { x: 108, y: 196, w: 78, label: 'tool call' },
+      observe: { x: 108, y: 254, w: 74, label: 'observe' },
+      answer:  { x: 108, y: 308, w: 72, label: 'answer' }
     };
     var H = 22;
     var EDGES = [
-      ['user', 'router'],
-      ['router', 'intake'], ['router', 'payroll'], ['router', 'docs'],
-      ['intake', 'tools'], ['payroll', 'tools'], ['docs', 'tools'],
-      ['tools', 'gate'], ['gate', 'reply']
+      ['user', 'reason'], ['reason', 'act'], ['act', 'tool'],
+      ['tool', 'observe'], ['observe', 'answer'],
+      // the loop back up the right-hand side
+      ['observe', 'reason']
     ];
+    var LOOP = 'observe>reason';
 
     function anchor(a, b) {
-      // leave from the bottom of a, arrive at the top of b
+      // The loop-back leaves and re-enters from the right-hand side.
+      if (a + '>' + b === LOOP) {
+        return [{ x: N[a].x + N[a].w / 2, y: N[a].y }, { x: N[b].x + N[b].w / 2, y: N[b].y }];
+      }
+      // everything else: bottom of a, top of b
       return [{ x: N[a].x, y: N[a].y + H / 2 }, { x: N[b].x, y: N[b].y - H / 2 }];
+    }
+
+    function curve(a, b) {
+      var p = anchor(a, b);
+      if (a + '>' + b === LOOP) {
+        return { d: 'M' + p[0].x + ' ' + p[0].y + ' C226 ' + p[0].y + ' 226 ' + p[1].y + ' ' + p[1].x + ' ' + p[1].y,
+                 ctrl: { x: 226, y: (p[0].y + p[1].y) / 2 }, p: p };
+      }
+      var mid = (p[0].y + p[1].y) / 2;
+      return { d: 'M' + p[0].x + ' ' + p[0].y + ' C' + p[0].x + ' ' + mid + ' ' + p[1].x + ' ' + mid + ' ' + p[1].x + ' ' + p[1].y,
+               ctrl: { x: (p[0].x + p[1].x) / 2, y: mid }, p: p };
     }
 
     var svgns = 'http://www.w3.org/2000/svg';
@@ -836,14 +851,15 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
 
     var edgeEls = {};
     EDGES.forEach(function (e) {
-      var p = anchor(e[0], e[1]);
-      var mid = (p[0].y + p[1].y) / 2;
-      var d = 'M' + p[0].x + ' ' + p[0].y + ' C' + p[0].x + ' ' + mid + ' ' +
-              p[1].x + ' ' + mid + ' ' + p[1].x + ' ' + p[1].y;
-      var el = mk('path', { d: d, class: 'edge' });
+      var c = curve(e[0], e[1]);
+      var el = mk('path', { d: c.d, class: 'edge' + (e[0] + '>' + e[1] === LOOP ? ' dashed' : '') });
       edgeEls[e[0] + '>' + e[1]] = el;
       svg.appendChild(el);
     });
+    var loopTag = mk('text', { class: 'nlabel', x: 236, y: 167, opacity: .75 });
+    loopTag.textContent = 'loop';
+    loopTag.setAttribute('transform', 'rotate(90 236 167)');
+    svg.appendChild(loopTag);
 
     var nodeEls = {};
     Object.keys(N).forEach(function (k) {
@@ -862,26 +878,23 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
 
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced) {
-      ['user', 'router', 'payroll', 'tools', 'gate', 'reply'].forEach(function (k) {
-        nodeEls[k].classList.add('on');
-      });
-      if (readout) readout.textContent = 'payroll';
+      Object.keys(nodeEls).forEach(function (k) { nodeEls[k].classList.add('on'); });
+      if (readout) readout.textContent = 'search → retrieve → answer';
       return;
     }
 
     var timer;
     function glide(a, b, ms) {
       return new Promise(function (done) {
-        var p = anchor(a, b), t0 = performance.now();
+        var c = curve(a, b), p = c.p, t0 = performance.now();
         edgeEls[a + '>' + b].classList.add('on');
         packet.setAttribute('opacity', 1);
         (function step(now) {
           var u = Math.min(1, (now - t0) / ms);
           var e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
-          var mid = (p[0].y + p[1].y) / 2;
-          // quadratic-ish along the same curve the edge draws
-          var x = (1 - e) * (1 - e) * p[0].x + 2 * (1 - e) * e * ((p[0].x + p[1].x) / 2) + e * e * p[1].x;
-          var y = (1 - e) * (1 - e) * p[0].y + 2 * (1 - e) * e * mid + e * e * p[1].y;
+          // follow the same quadratic the edge is drawn along
+          var x = (1 - e) * (1 - e) * p[0].x + 2 * (1 - e) * e * c.ctrl.x + e * e * p[1].x;
+          var y = (1 - e) * (1 - e) * p[0].y + 2 * (1 - e) * e * c.ctrl.y + e * e * p[1].y;
           packet.setAttribute('cx', x);
           packet.setAttribute('cy', y);
           if (u < 1) requestAnimationFrame(step);
@@ -896,8 +909,13 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
       packet.setAttribute('opacity', 0);
     }
 
-    var SPECIALISTS = ['intake', 'payroll', 'docs'];
-    var turn = 0;
+    // A different tool each time round, because that is what the loop is for.
+    var TOOLKIT = [
+      ['search', 'retrieve', 'summarise'],
+      ['sql', 'validate', 'format'],
+      ['fetch docs', 'extract', 'check']
+    ];
+    var run = 0;
 
     async function loop() {
       for (;;) {
@@ -905,15 +923,30 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
         if (readout) readout.textContent = '—';
         await new Promise(function (r) { timer = setTimeout(r, 700); });
 
-        var pickAgent = SPECIALISTS[turn++ % SPECIALISTS.length];
+        var tools = TOOLKIT[run++ % TOOLKIT.length];
+        var used = [];
         nodeEls.user.classList.add('on');
-        await glide('user', 'router', 420);
-        if (readout) readout.textContent = pickAgent;
-        await glide('router', pickAgent, 480);
-        await glide(pickAgent, 'tools', 480);
-        await glide('tools', 'gate', 380);
-        await glide('gate', 'reply', 380);
-        await new Promise(function (r) { timer = setTimeout(r, 2300); });
+        await glide('user', 'reason', 380);
+
+        // Two turns round the loop, then the exit edge.
+        for (var i = 0; i < 2; i++) {
+          used.push(tools[i]);
+          if (readout) readout.textContent = used.join(' → ');
+          nodeEls.tool.querySelector('.nlabel').textContent = tools[i];
+          await glide('reason', 'act', 340);
+          await glide('act', 'tool', 340);
+          await glide('tool', 'observe', 340);
+          if (i === 0) {
+            await glide('observe', 'reason', 520);
+            edgeEls['reason>act'].classList.remove('on');
+            edgeEls['act>tool'].classList.remove('on');
+            edgeEls['tool>observe'].classList.remove('on');
+          }
+        }
+
+        if (readout) readout.textContent = used.join(' → ') + ' → answer';
+        await glide('observe', 'answer', 380);
+        await new Promise(function (r) { timer = setTimeout(r, 2400); });
       }
     }
 
