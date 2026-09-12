@@ -202,6 +202,12 @@ html[data-theme="light"] .term{background:#fff}
 .tk-warn{color:var(--warn)}
 .tk-caret{color:var(--accent);animation:blink 1.1s steps(1) infinite}
 .tk-hit{color:var(--accent);font-weight:600}
+.t0{color:#818cf8}.t1{color:#38bdf8}.t2{color:#34d399}.t3{color:#fbbf24}.t4{color:#f472b6}
+html[data-theme="light"] .t0{color:#4f46e5}
+html[data-theme="light"] .t1{color:#0284c7}
+html[data-theme="light"] .t2{color:#059669}
+html[data-theme="light"] .t3{color:#b45309}
+html[data-theme="light"] .t4{color:#be185d}
 @keyframes blink{0%,50%{opacity:1}50.01%,100%{opacity:0}}
 
 /* ─────────────────────────  Projects  ───────────────────────── */
@@ -215,6 +221,20 @@ html[data-theme="light"] .term{background:#fff}
 .feature-main>p{margin-top:7px;font-size:14px;line-height:1.6}
 .badge{display:inline-flex;align-items:center;gap:6px;font:600 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-3);border:1px solid color-mix(in srgb,var(--accent-3) 35%,transparent);background:color-mix(in srgb,var(--accent-3) 12%,transparent);border-radius:999px;padding:4px 9px;margin-bottom:9px}
 .side-label{font:600 11px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin:0 0 10px}
+/* Hover a word to light up what it attends to. */
+.attn-text{max-width:64ch;margin:-14px 0 10px;font-size:16.5px;line-height:2.05;color:var(--ink-soft)}
+.tok{border-radius:6px;padding:3px 5px;margin:0 -2px;cursor:default;color:var(--ink);
+  background:color-mix(in srgb,var(--accent) 9%,transparent);
+  transition:background .2s ease,color .2s ease,box-shadow .2s ease}
+.tok:hover,.tok:focus-visible{background:var(--accent);color:#fff;box-shadow:0 4px 14px -4px var(--accent);outline:none}
+.hint{font:500 11.5px/1.4 var(--mono);color:var(--muted);letter-spacing:.04em;margin-bottom:26px}
+.hint::before{content:"↖ "}
+
+/* Gradient descent on a narrow valley — the classic zig-zag picture. */
+.gd{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--bg) 45%,transparent)}
+.gd-read{margin-top:8px;font:500 11.5px/1.4 var(--mono);color:var(--ink-soft)}
+.gd-read .tk-dim{color:var(--muted)}
+
 .edu{display:flex;flex-direction:column;gap:5px;padding:18px 20px}
 .edu strong{font-size:15.5px;font-weight:650;letter-spacing:-.01em;line-height:1.35}
 .edu .period{margin-left:0;margin-top:2px}
@@ -222,9 +242,22 @@ html[data-theme="light"] .term{background:#fff}
 .bullets li{position:relative;padding-left:19px;font-size:14px;line-height:1.55;color:var(--ink-soft)}
 .bullets li::before{content:"▸";position:absolute;left:0;top:0;color:var(--accent);font-size:12px}
 /* ─────────────────────────  Stack section  ───────────────────────── */
-.stack-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-.stack-card h3{display:flex;align-items:center;gap:9px;font:600 13px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:14px}
-.stack-card .stack{gap:7px}
+
+/* Attention-style skills matrix: rows attend to columns. */
+.attn{overflow-x:auto;border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:20px 22px}
+.attn table{border-collapse:separate;border-spacing:5px;min-width:600px;margin:0 auto}
+.attn th{font:500 11.5px/1.3 var(--mono);color:var(--muted);font-weight:500}
+.attn thead th{padding:0 0 6px;text-align:center;vertical-align:bottom}
+.attn tbody th{text-align:left;padding-right:12px;white-space:nowrap;color:var(--ink-soft);font-size:12.5px}
+.attn td{width:52px;height:27px;border-radius:6px;border:1px solid transparent;transition:transform .15s,border-color .15s}
+.attn td:hover{transform:scale(1.12);border-color:var(--line-hi)}
+.w0{background:color-mix(in srgb,var(--accent) 5%,transparent)}
+.w1{background:color-mix(in srgb,var(--accent) 18%,transparent)}
+.w2{background:color-mix(in srgb,var(--accent) 36%,transparent)}
+.w3{background:color-mix(in srgb,var(--accent) 60%,transparent)}
+.w4{background:color-mix(in srgb,var(--accent) 88%,transparent)}
+.attn-legend{display:flex;align-items:center;gap:7px;justify-content:flex-end;margin-top:14px;font:500 11px/1 var(--mono);color:var(--muted)}
+.attn-legend i{width:26px;height:11px;border-radius:3px;display:block}
 
 /* ─────────────────────────  Timeline  ───────────────────────── */
 .timeline{position:relative;display:grid;gap:16px;padding-left:34px}
@@ -266,6 +299,11 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
   html{scroll-behavior:auto}
 }
 </style>
+<noscript><style>
+  /* Without JS nothing reveals itself, so show everything up front. */
+  .reveal{opacity:1!important;transform:none!important}
+  .hint,.term,.gd,.gd-read{display:none}
+</style></noscript>
 </head>
 <body>
 <div class="bg"></div>
@@ -350,7 +388,14 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
       <div class="reveal">
         <div class="eyebrow">Overview</div>
         <h2 class="h2">What I like working on</h2>
-        <p class="muted" style="max-width:62ch;margin:-16px 0 24px;font-size:15px">Three themes that keep coming back — mostly the same instinct applied to different problems.</p>
+        <p class="attn-text" id="attnText">I build <span class="tok" data-k="agents" tabindex="0">agents</span> that read
+          <span class="tok" data-k="documents" tabindex="0">documents</span>, answer in
+          <span class="tok" data-k="conversation" tabindex="0">conversation</span>, get judged by
+          <span class="tok" data-k="evals" tabindex="0">evals</span> and stay
+          <span class="tok" data-k="observable" tabindex="0">observable</span> in
+          <span class="tok" data-k="production" tabindex="0">production</span> — the same loop I learned doing
+          <span class="tok" data-k="optimization" tabindex="0">optimization</span>.</p>
+        <p class="hint">hover a word to see what it attends to</p>
       </div>
 
       <!-- Theme: agents -->
@@ -410,11 +455,21 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
           </ul>
         </div>
         <div class="feature-side">
-          <p class="side-label">Usually with</p>
+          <p class="side-label">Descent</p>
+          <svg class="gd" id="gd" viewBox="0 0 300 150" role="img"
+               aria-label="Gradient descent zig-zagging down a narrow valley toward the minimum">
+            <g id="gdContours"></g>
+            <polyline id="gdPath" fill="none" stroke="var(--accent-2)" stroke-width="1.6"
+                      stroke-linejoin="round" stroke-linecap="round" opacity=".85"/>
+            <circle id="gdDot" r="4" fill="var(--accent)"/>
+            <circle cx="0" cy="0" r="2.5" id="gdMin" fill="var(--accent-3)"/>
+          </svg>
+          <p class="gd-read"><span class="tk-dim">step</span> <span id="gdStep">0</span>
+            <span class="tk-dim">· loss</span> <span id="gdLoss">—</span></p>
+          <p class="side-label" style="margin-top:16px">Usually with</p>
           <div class="stack">
-            <span class="tag">TensorFlow</span><span class="tag">Keras</span><span class="tag">YOLOv5</span>
             <span class="tag">CPLEX</span><span class="tag">MiniZinc</span><span class="tag">Metaheuristics</span>
-            <span class="tag">Time series</span><span class="tag">ETL</span>
+            <span class="tag">TensorFlow</span><span class="tag">Keras</span><span class="tag">Time series</span>
           </div>
         </div>
       </article>
@@ -428,53 +483,62 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
       <div class="reveal">
         <div class="eyebrow">Toolbox</div>
         <h2 class="h2">Tools I work with</h2>
+        <p class="muted" style="max-width:62ch;margin:-16px 0 24px;font-size:15px">Rows attend to columns — the darker the cell, the more that tool carries the weight in that kind of work.</p>
       </div>
-      <div class="stack-grid">
-        <div class="card stack-card reveal">
-          <h3>🤖 AI &amp; LLM</h3>
-          <div class="stack">
-            <span class="tag">LangChain</span><span class="tag">Claude</span><span class="tag">GPT</span>
-            <span class="tag">Gemini</span><span class="tag">Agents</span><span class="tag">RAG</span>
-            <span class="tag">Evals</span><span class="tag">Prompt eng.</span><span class="tag">Fine-tuning</span>
-          </div>
+
+      <div class="attn reveal">
+        <table>
+          <caption class="muted" style="caption-side:bottom;padding-top:14px;font-size:12.5px;text-align:left">What I actually reach for, by area of work.</caption>
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Python</th><th scope="col">PyTorch</th><th scope="col">LangChain</th>
+              <th scope="col">Cloud</th><th scope="col">CP&nbsp;/&nbsp;MIP</th><th scope="col">Vision</th>
+              <th scope="col">Data</th><th scope="col">MLOps</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">LLM agents</th>
+              <td class="w4" title="Python · core"></td><td class="w2"></td><td class="w4" title="LangChain · core"></td>
+              <td class="w3"></td><td class="w0"></td><td class="w0"></td><td class="w3"></td><td class="w3"></td></tr>
+            <tr><th scope="row">NLP &amp; retrieval</th>
+              <td class="w4"></td><td class="w3"></td><td class="w4"></td>
+              <td class="w3"></td><td class="w0"></td><td class="w0"></td><td class="w3"></td><td class="w2"></td></tr>
+            <tr><th scope="row">Computer vision</th>
+              <td class="w4"></td><td class="w4"></td><td class="w0"></td>
+              <td class="w2"></td><td class="w0"></td><td class="w4"></td><td class="w2"></td><td class="w2"></td></tr>
+            <tr><th scope="row">Time series</th>
+              <td class="w4"></td><td class="w3"></td><td class="w0"></td>
+              <td class="w2"></td><td class="w1"></td><td class="w0"></td><td class="w4"></td><td class="w2"></td></tr>
+            <tr><th scope="row">Optimization</th>
+              <td class="w4"></td><td class="w0"></td><td class="w0"></td>
+              <td class="w2"></td><td class="w4"></td><td class="w0"></td><td class="w3"></td><td class="w2"></td></tr>
+            <tr><th scope="row">MLOps &amp; evals</th>
+              <td class="w4"></td><td class="w1"></td><td class="w1"></td>
+              <td class="w4"></td><td class="w0"></td><td class="w0"></td><td class="w2"></td><td class="w4"></td></tr>
+          </tbody>
+        </table>
+        <div class="attn-legend">
+          <span>less</span>
+          <i class="w0"></i><i class="w1"></i><i class="w2"></i><i class="w3"></i><i class="w4"></i>
+          <span>more</span>
         </div>
-        <div class="card stack-card reveal" style="transition-delay:.05s">
-          <h3>🧠 ML &amp; DL</h3>
-          <div class="stack">
-            <span class="tag">PyTorch</span><span class="tag">TensorFlow</span><span class="tag">Keras</span>
-            <span class="tag">scikit-learn</span><span class="tag">CNN</span><span class="tag">RNN</span>
-            <span class="tag">GNN</span><span class="tag">GAN</span><span class="tag">RL</span><span class="tag">YOLO</span>
-          </div>
-        </div>
-        <div class="card stack-card reveal" style="transition-delay:.1s">
-          <h3>⚙️ Engineering</h3>
-          <div class="stack">
-            <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">Flask</span>
-            <span class="tag">Postgres</span><span class="tag">Docker</span><span class="tag">CI/CD</span>
-            <span class="tag">Git</span><span class="tag">REST APIs</span>
-          </div>
-        </div>
-        <div class="card stack-card reveal" style="transition-delay:.05s">
-          <h3>☁️ Cloud &amp; Ops</h3>
-          <div class="stack">
-            <span class="tag">GCP</span><span class="tag">Azure</span><span class="tag">AWS</span>
-            <span class="tag">Vertex AI</span><span class="tag">Azure AI</span><span class="tag">OpenTelemetry</span>
-            <span class="tag">Datadog</span><span class="tag">MLOps</span>
-          </div>
-        </div>
-        <div class="card stack-card reveal" style="transition-delay:.1s">
-          <h3>🧮 Optimization</h3>
-          <div class="stack">
-            <span class="tag">CPLEX</span><span class="tag">MiniZinc</span><span class="tag">Metaheuristics</span>
-            <span class="tag">VRP</span><span class="tag">Scheduling</span><span class="tag">Simulation</span>
-          </div>
-        </div>
-        <div class="card stack-card reveal" style="transition-delay:.15s">
-          <h3>⚛️ Also curious about</h3>
-          <div class="stack">
-            <span class="tag">Quantum computing</span><span class="tag">Qiskit</span>
-            <span class="tag">Graph theory</span><span class="tag">Explainability</span>
-          </div>
+      </div>
+
+      <div class="card reveal" style="margin-top:18px">
+        <p class="side-label">Everything in the box</p>
+        <div class="stack">
+          <span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">TensorFlow</span><span class="tag">Keras</span>
+          <span class="tag">scikit-learn</span><span class="tag">LangChain</span><span class="tag">Claude</span><span class="tag">GPT</span>
+          <span class="tag">Gemini</span><span class="tag">RAG</span><span class="tag">Evals</span><span class="tag">Fine-tuning</span>
+          <span class="tag">CNN</span><span class="tag">RNN</span><span class="tag">GNN</span><span class="tag">GAN</span>
+          <span class="tag">RL</span><span class="tag">YOLO</span><span class="tag">FastAPI</span><span class="tag">Flask</span>
+          <span class="tag">Postgres</span><span class="tag">Docker</span><span class="tag">CI/CD</span><span class="tag">REST APIs</span>
+          <span class="tag">GCP</span><span class="tag">Azure</span><span class="tag">AWS</span><span class="tag">Vertex AI</span>
+          <span class="tag">OpenTelemetry</span><span class="tag">Datadog</span><span class="tag">MLOps</span>
+          <span class="tag">CPLEX</span><span class="tag">MiniZinc</span><span class="tag">Metaheuristics</span><span class="tag">VRP</span>
+          <span class="tag">Scheduling</span><span class="tag">Simulation</span>
+          <span class="tag">Quantum computing</span><span class="tag">Qiskit</span><span class="tag">Explainability</span>
         </div>
       </div>
     </div>
@@ -656,6 +720,118 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
   var epYear = document.getElementById('epYear');
   if (epYear) epYear.textContent = new Date().getFullYear();
 
+  /* ── Hover-to-attend. A hand-authored attention row per word: hovering one
+        lights the others in proportion to how much it attends to them. ── */
+  (function attendText() {
+    var host = document.getElementById('attnText');
+    if (!host) return;
+
+    var MAP = {
+      agents:       { conversation: .95, production: .72, evals: .64, documents: .55, observable: .42, optimization: .18 },
+      documents:    { agents: .74, evals: .42, conversation: .35, production: .22, observable: .18, optimization: .12 },
+      conversation: { agents: .95, production: .52, documents: .34, evals: .28, observable: .2, optimization: .1 },
+      evals:        { agents: .8, observable: .74, production: .6, documents: .36, conversation: .28, optimization: .3 },
+      observable:   { production: .9, evals: .74, agents: .5, conversation: .2, documents: .16, optimization: .2 },
+      production:   { agents: .82, observable: .8, evals: .55, conversation: .48, documents: .22, optimization: .24 },
+      optimization: { evals: .5, agents: .4, production: .36, observable: .3, documents: .2, conversation: .16 }
+    };
+
+    var toks = Array.prototype.slice.call(host.querySelectorAll('.tok'));
+
+    function clear() {
+      toks.forEach(function (t) { t.style.background = ''; t.style.color = ''; });
+    }
+
+    function light(src) {
+      var row = MAP[src.dataset.k] || {};
+      toks.forEach(function (t) {
+        if (t === src) return;
+        var w = row[t.dataset.k] || 0;
+        t.style.background = 'color-mix(in srgb, var(--accent) ' + Math.round(w * 72) + '%, transparent)';
+        t.style.color = w > 0.55 ? 'var(--ink)' : '';
+      });
+    }
+
+    toks.forEach(function (t) {
+      t.addEventListener('mouseenter', function () { light(t); });
+      t.addEventListener('focus', function () { light(t); });
+      t.addEventListener('mouseleave', clear);
+      t.addEventListener('blur', clear);
+    });
+  })();
+
+  /* ── Gradient descent on f(x,y) = x² + 8y².
+        The valley is deliberately narrow: with a step size that overshoots the
+        steep axis, you get the zig-zag every optimization course opens with. ── */
+  (function descent() {
+    var svg = document.getElementById('gd');
+    if (!svg) return;
+    var contours = document.getElementById('gdContours');
+    var path = document.getElementById('gdPath');
+    var dot = document.getElementById('gdDot');
+    var min = document.getElementById('gdMin');
+    var stepOut = document.getElementById('gdStep');
+    var lossOut = document.getElementById('gdLoss');
+
+    // LR is tuned so the steep axis overshoots (1 - 2·LR·B < 0) and decays
+    // slowly, which is what makes the zig-zag visible rather than instant.
+    var A = 1, B = 8, LR = 0.112, STEPS = 40;
+    var W = 300, H = 150, CX = W / 2, CY = H / 2, SX = 125, SY = 58;
+    var toX = function (x) { return CX + x * SX; };
+    var toY = function (y) { return CY - y * SY; };
+    var f = function (x, y) { return A * x * x + B * y * y; };
+
+    // Level sets of the quadratic are ellipses around the minimum.
+    var rings = '';
+    [0.18, 0.38, 0.62, 0.9].forEach(function (L) {
+      rings += '<ellipse cx="' + CX + '" cy="' + CY + '" rx="' + (Math.sqrt(L / A) * SX).toFixed(1) +
+               '" ry="' + (Math.sqrt(L / B) * SY).toFixed(1) +
+               '" fill="none" stroke="var(--accent)" stroke-width="1" opacity="' + (0.42 - L * 0.22).toFixed(2) + '"/>';
+    });
+    contours.innerHTML = rings;
+    min.setAttribute('cx', CX);
+    min.setAttribute('cy', CY);
+
+    var pts = [], x = -0.92, y = 0.82;
+    for (var i = 0; i <= STEPS; i++) {
+      pts.push([x, y, f(x, y)]);
+      x -= LR * 2 * A * x;
+      y -= LR * 2 * B * y;
+    }
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+      path.setAttribute('points', pts.map(function (p) { return toX(p[0]) + ',' + toY(p[1]); }).join(' '));
+      var last = pts[pts.length - 1];
+      dot.setAttribute('cx', toX(last[0]));
+      dot.setAttribute('cy', toY(last[1]));
+      stepOut.textContent = STEPS;
+      lossOut.textContent = last[2].toFixed(3);
+      return;
+    }
+
+    var k = 0, timer;
+    function frame() {
+      k++;
+      if (k > STEPS) {
+        timer = setTimeout(function () { k = 0; frame(); }, 2600);
+        return;
+      }
+      var slice = pts.slice(0, k + 1);
+      path.setAttribute('points', slice.map(function (p) { return toX(p[0]) + ',' + toY(p[1]); }).join(' '));
+      var p = pts[k];
+      dot.setAttribute('cx', toX(p[0]));
+      dot.setAttribute('cy', toY(p[1]));
+      stepOut.textContent = k;
+      lossOut.textContent = p[2].toFixed(3);
+      timer = setTimeout(frame, 105);
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) clearTimeout(timer);
+    });
+    frame();
+  })();
+
   /* ── Next-token sampler in the terminal card.
         Each step holds a small distribution; we sample from it proportionally,
         so the sentence really is different run to run rather than replayed. ── */
@@ -666,7 +842,6 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
     var out = document.getElementById('genOut');
     if (!cmd || !rows || !out) return;
 
-    var PROMPT = 'me.generate("what’s next?")';
     var CELLS = 10;
     var PAD = 11;
     var STEPS = [
@@ -674,6 +849,18 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
       [['agents', 0.51], ['evals', 0.33], ['pipelines', 0.16]],
       [[', fewer', 0.52], [', plus', 0.30], [', not', 0.18]],
       [['demos', 0.46], ['slides', 0.33], ['dashboards', 0.21]]
+    ];
+    // Real BPE-ish splits: accents and non-English names fragment badly.
+    var TOKENS = [
+      ['Gonzalo Recio Domènech', ['Gon', 'zalo', ' Re', 'cio', ' Dom', 'è', 'nech']],
+      ['Universitat Politècnica', ['Univers', 'itat', ' Polit', 'è', 'cn', 'ica']],
+      ['combinatorial optimization', ['comb', 'inator', 'ial', ' optim', 'ization']]
+    ];
+    var TEMPS = [
+      ['0.2', 'more agents, fewer demos', 'tk-str'],
+      ['0.8', 'faster evals, plus dashboards', 'tk-str'],
+      ['1.4', 'better pipelines, minus the yaml', 'tk-num'],
+      ['2.1', 'gradient banana deploy sunset', 'tk-warn']
     ];
 
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -715,40 +902,86 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
 
     function show(text) { out.innerHTML = '<span class="tk-str">"' + text + '"</span>'; }
 
+    async function type(text) {
+      cmd.textContent = '';
+      for (var c = 0; c < text.length; c++) {
+        cmd.textContent += text[c];
+        await wait(30);
+      }
+      await wait(430);
+    }
+
+    function reset() {
+      blank();
+      out.innerHTML = ' ';
+    }
+
+    /* Act 1 — sample a sentence token by token. */
+    async function actSample() {
+      await type('me.generate("what’s next?")');
+      var words = [];
+      for (var s = 0; s < STEPS.length; s++) {
+        paint(STEPS[s], -1);
+        await wait(400);
+        var k = pick(STEPS[s]);
+        paint(STEPS[s], k);
+        await wait(290);
+        words.push(STEPS[s][k][0]);
+        show(words.join(' ').replace(/ , /g, ', '));
+        await wait(170);
+      }
+    }
+
+    /* Act 2 — split text into tokens; accented names fare badly. */
+    async function actTokenize() {
+      var c = TOKENS[Math.floor(Math.random() * TOKENS.length)];
+      await type('tokenize("' + c[0] + '")');
+      var acc = [];
+      for (var i = 0; i < c[1].length; i++) {
+        acc.push('<span class="t' + (i % 5) + '">' + c[1][i].replace(/ /g, '·') + '</span>');
+        rows.innerHTML = '<div>[' + acc.join('<span class="tk-dim">|</span>') + ']</div>' +
+                         '<div> </div><div> </div>';
+        await wait(215);
+      }
+      rows.innerHTML = '<div>[' + acc.join('<span class="tk-dim">|</span>') + ']</div>' +
+                       '<div> </div>' +
+                       '<div class="tk-dim">' + c[1].length + ' tokens · ' + c[0].length + ' characters</div>';
+      out.innerHTML = '<span class="tk-dim">the model never sees the letters</span>';
+    }
+
+    /* Act 3 — the same prompt as temperature climbs. */
+    async function actTemperature() {
+      await type('for t in temps: me.generate(prompt, t)');
+      var lines = [];
+      for (var i = 0; i < TEMPS.length; i++) {
+        lines.push('<div><span class="tk-dim">t=</span><span class="tk-num">' + TEMPS[i][0] +
+                   '</span>  <span class="' + TEMPS[i][2] + '">"' + TEMPS[i][1] + '"</span></div>');
+        rows.innerHTML = lines.slice(-3).join('') +
+                         new Array(Math.max(0, 3 - lines.length) + 1).join('<div> </div>');
+        if (i === TEMPS.length - 1) {
+          out.innerHTML = '<span class="tk-warn">UserWarning</span>: coherence not found';
+        }
+        await wait(640);
+      }
+    }
+
+    var acts = [actSample, actTokenize, actTemperature];
+
     async function run() {
-      // Static result for anyone who asked for less motion.
+      // One static frame for anyone who asked for less motion.
       if (reduced) {
-        cmd.textContent = PROMPT;
+        cmd.textContent = 'me.generate("what’s next?")';
         caret.style.display = 'none';
         paint(STEPS[0], 0);
         show('more agents, fewer demos');
         return;
       }
 
-      for (;;) {
-        cmd.textContent = '';
-        blank();
-        out.innerHTML = ' ';
-        await wait(1400);
-
-        for (var c = 0; c < PROMPT.length; c++) {
-          cmd.textContent += PROMPT[c];
-          await wait(32);
-        }
-        await wait(450);
-
-        var words = [];
-        for (var s = 0; s < STEPS.length; s++) {
-          paint(STEPS[s], -1);
-          await wait(420);
-          var k = pick(STEPS[s]);
-          paint(STEPS[s], k);
-          await wait(300);
-          words.push(STEPS[s][k][0]);
-          show(words.join(' ').replace(/ , /g, ', '));
-          await wait(180);
-        }
-        await wait(4200);
+      for (var i = 0; ; i = (i + 1) % acts.length) {
+        reset();
+        await wait(900);
+        await acts[i]();
+        await wait(4000);
       }
     }
 
