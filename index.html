@@ -3,83 +3,769 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gonzalo Recio — Personal Web CV</title>
-  <meta name="description" content="Personal web CV of Gonzalo Recio — Applied AI, ML&DL, LLM Agents, Optimization, Quantum Computing." />
+  <title>Gonzalo Recio — AI Engineer &amp; Technical Portfolio</title>
+  <meta name="description" content="Gonzalo Recio Domènech — AI Lead at Valeria. Technical portfolio: LLM agents in production, deep learning, computer vision, reinforcement learning and combinatorial optimization. Barcelona." />
+  <meta name="author" content="Gonzalo Recio Domènech" />
   <meta name="color-scheme" content="dark light" />
-  <meta property="og:title" content="Gonzalo Recio — Personal Web CV" />
-  <meta property="og:description" content="Applied AI, ML&DL, LLM Agents, Optimization, Quantum Computing." />
-  <meta property="og:type" content="website" />
-</head>
-<body><link rel="preload" as="image" href="https://media.licdn.com/dms/image/v2/C4E03AQFdUnxOdgIpng/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1592468787889?e=1761782400&amp;v=beta&amp;t=Q0s6VEv2p-yic8WsCbmuYLCQ9VPxizRqaAz3JpKQGA8"/><div class="min-h-screen" style="background:linear-gradient(180deg,#0b1220,#0d1324);color:#e6eaf2"><style>
-:root{--bg-0:#0b1220;--bg-1:#0d1324;--ink:#e6eaf2;--muted:#9aa3b2;--indigo:#6366f1;--card:#121a2a;--line:rgba(255,255,255,.08);--ring:rgba(99,102,241,.35)}
-*{box-sizing:border-box}
-html,body,#root{height:100%}
-body{margin:0;font:400 16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,"Helvetica Neue",Arial;color:var(--ink)}
-a{color:inherit}
-.container{max-width:1100px;margin:0 auto;padding:0 16px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.05);text-decoration:none}
-.btn:hover{background:rgba(255,255,255,.08)}
-.chip{display:inline-flex;align-items:center;border:1px solid var(--line);background:rgba(255,255,255,.05);border-radius:999px;padding:4px 10px;font-size:12px;color:#c8cfdb}
-.tag{display:inline-flex;border:1px solid var(--line);background:rgba(255,255,255,.05);border-radius:8px;padding:2px 8px;font-size:12px;color:#c8cfdb}
-.card{border:1px solid var(--line);background:rgba(255,255,255,.05);border-radius:16px;padding:20px}
-header.sticky{position:sticky;top:0;z-index:50;backdrop-filter:saturate(1.1) blur(8px);background:rgba(13,19,36,.7);border-bottom:1px solid var(--line)}
-nav a{color:#c8cfdb;text-decoration:none}
-nav a:hover{color:#fff}
-.h1{font-size:clamp(28px,5vw,44px);line-height:1.1;margin:0}
-.h2{font-size:clamp(22px,3.5vw,32px);margin:0 0 8px}
-h3{margin:0 0 8px}
-section{padding:56px 0}
-.grid{display:grid;gap:24px}
-/* Hero responsive grid: 1 col mobile, 3:2 split on desktop */
-.hero-grid{display:grid;gap:24px;grid-template-columns:1fr}
-@media(min-width:900px){.hero-grid{grid-template-columns:3fr 2fr}}
+  <meta name="theme-color" content="#080d18" />
 
-.muted{color:var(--muted)}
-.kbd{border:1px solid var(--line);border-radius:6px;padding:0 6px;background:rgba(255,255,255,.05)}
+  <link rel="canonical" href="https://gonzalorecio.github.io/" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%A0%3C/text%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="https://avatars.githubusercontent.com/u/12600577?v=4" />
 
-/* Subtle Blurry background */
-.bg-blobs{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
-.bg-blobs .blob{position:absolute;filter:blur(60px);opacity:.28;mix-blend:screen;border-radius:999px;transform:translate(-50%,-50%)}
-.blob.b1{width:50vmax;height:50vmax;left:20%;top:30%;background:radial-gradient(closest-side,rgba(99,102,241,.65),transparent 60%);animation:float1 16s ease-in-out infinite}
-.blob.b2{width:45vmax;height:45vmax;left:80%;top:20%;background:radial-gradient(closest-side,rgba(16,185,129,.5),transparent 60%);animation:float2 20s ease-in-out infinite}
-.blob.b3{width:55vmax;height:55vmax;left:60%;top:70%;background:radial-gradient(closest-side,rgba(56,189,248,.5),transparent 60%);animation:float3 22s ease-in-out infinite}
-@keyframes float1{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-40%,-45%) scale(1.15)}}
-@keyframes float2{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-55%,-60%) scale(1.1)}}
-@keyframes float3{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-45%,-40%) scale(1.2)}}
-@media (prefers-reduced-motion: reduce){.blob{animation:none}}
-/* Mobile tuning for blobs */
-@media(max-width:600px){
-  .bg-blobs .blob{filter:blur(40px);opacity:.22}
-  .blob.b1{width:80vw;height:80vw;left:25%;top:25%}
-  .blob.b2{width:70vw;height:70vw;left:85%;top:15%}
-  .blob.b3{width:90vw;height:90vw;left:55%;top:75%}
+  <meta property="og:title" content="Gonzalo Recio — AI Engineer &amp; Technical Portfolio" />
+  <meta property="og:description" content="AI Lead at Valeria. LLM agents in production, deep learning, vision, RL and optimization." />
+  <meta property="og:type" content="profile" />
+  <meta property="og:url" content="https://gonzalorecio.github.io/" />
+  <meta property="og:image" content="https://avatars.githubusercontent.com/u/12600577?v=4" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+  <link rel="preload" as="image" href="https://avatars.githubusercontent.com/u/12600577?v=4" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Gonzalo Recio Domènech",
+    "url": "https://gonzalorecio.github.io/",
+    "image": "https://avatars.githubusercontent.com/u/12600577?v=4",
+    "email": "gonzalo.recio.domenech@gmail.com",
+    "jobTitle": "AI Lead — Head of AI & Innovation",
+    "worksFor": { "@type": "Organization", "name": "Valeria" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Barcelona", "addressCountry": "ES" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Universitat Politècnica de Catalunya (UPC)" },
+    "knowsAbout": ["LLM Agents", "Deep Learning", "Computer Vision", "Reinforcement Learning", "Combinatorial Optimization", "MLOps"],
+    "sameAs": [
+      "https://github.com/gonzalorecio",
+      "https://www.linkedin.com/in/gonzalo-recio1337/",
+      "https://scholar.google.com/citations?hl=en&user=_gpRzjMAAAAJ"
+    ]
+  }
+  </script>
+
+<style>
+/* ─────────────────────────  Design tokens  ───────────────────────── */
+:root{
+  --bg:#080d18;
+  --bg-soft:#0d1426;
+  --surface:rgba(255,255,255,.04);
+  --surface-hi:rgba(255,255,255,.07);
+  --line:rgba(255,255,255,.09);
+  --line-hi:rgba(255,255,255,.17);
+  --ink:#e9edf6;
+  --ink-soft:#aeb8c9;
+  --muted:#8b95a8;
+  --accent:#818cf8;
+  --accent-2:#38bdf8;
+  --accent-3:#34d399;
+  --accent-ink:#c3cafe;
+  --shadow:0 18px 48px -18px rgba(0,0,0,.75);
+  --radius:16px;
+  --maxw:1080px;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+html[data-theme="light"]{
+  --bg:#f7f8fc;
+  --bg-soft:#eaeef8;
+  --surface:rgba(14,20,38,.035);
+  --surface-hi:rgba(14,20,38,.065);
+  --line:rgba(14,20,38,.11);
+  --line-hi:rgba(14,20,38,.2);
+  --ink:#131a2c;
+  --ink-soft:#3e4d68;
+  --muted:#62708a;
+  --accent:#4f46e5;
+  --accent-2:#0284c7;
+  --accent-3:#059669;
+  --accent-ink:#4338ca;
+  --shadow:0 18px 44px -20px rgba(20,30,60,.35);
 }
 
-/* Entrance animations */
-.fade{opacity:0;animation:fadeIn .6s ease-out forwards}
-@keyframes fadeIn{from{opacity:.001;transform:translateY(6px)}to{opacity:1;transform:none}}
-.rise{opacity:0;animation:riseIn .45s ease-out forwards}
-@keyframes riseIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:400 16px/1.65 Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+ul{margin:0;padding:0}
+::selection{background:var(--accent);color:#fff}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
 
-/* Fancy publications list */
-.pub-list{list-style:none;padding:0;margin:0;display:grid;gap:12px}
-@media(min-width:800px){.pub-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.pub-card{position:relative;display:flex;gap:14px;align-items:flex-start;border:1px solid var(--line);background:rgba(255,255,255,.05);border-radius:14px;padding:14px 16px;transition:transform .2s ease, box-shadow .2s ease}
-.pub-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--indigo),#38bdf8);border-radius:14px 0 0 14px}
-.pub-card:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.25)}
-.pub-pill{flex:0 0 auto;font-size:11px;line-height:1;border:1px solid var(--line);border-radius:999px;padding:6px 8px;background:rgba(255,255,255,.04);color:#c8cfdb}
-.pub-body{min-width:0}
-.pub-title{display:inline-block;color:#eaf;text-decoration:none}
-.pub-title:hover{text-decoration:underline}
-.pub-meta{margin-top:4px;font-size:12px;color:var(--muted)}
-.ext{margin-left:6px;opacity:.7}
+/* ─────────────────────────  Background  ───────────────────────── */
+.bg{position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(1200px 700px at 12% -12%,rgba(99,102,241,.20),transparent 62%),
+    radial-gradient(1000px 700px at 92% -4%,rgba(56,189,248,.15),transparent 62%),
+    linear-gradient(180deg,var(--bg),var(--bg-soft));
+}
+.bg::after{content:"";position:absolute;inset:0;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.blobs{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.blob{position:absolute;border-radius:999px;filter:blur(90px);opacity:.28;transform:translate(-50%,-50%)}
+.blob.b1{width:46vmax;height:46vmax;left:16%;top:20%;background:radial-gradient(closest-side,rgba(99,102,241,.72),transparent 70%);animation:drift1 22s ease-in-out infinite}
+.blob.b2{width:40vmax;height:40vmax;left:86%;top:12%;background:radial-gradient(closest-side,rgba(56,189,248,.55),transparent 70%);animation:drift2 26s ease-in-out infinite}
+.blob.b3{width:50vmax;height:50vmax;left:64%;top:84%;background:radial-gradient(closest-side,rgba(52,211,153,.40),transparent 70%);animation:drift3 30s ease-in-out infinite}
+html[data-theme="light"] .blob{opacity:.18}
+@keyframes drift1{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-42%,-56%) scale(1.14)}}
+@keyframes drift2{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-58%,-42%) scale(1.1)}}
+@keyframes drift3{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-44%,-58%) scale(1.18)}}
 
-/* Timeline alignment & layering */
-.timeline{position:relative;--tl-line:24px}
-.timeline .line{position:absolute;left:var(--tl-line);top:0;bottom:0;width:1px;background:var(--line);z-index:0}
-.timeline-item{position:relative;--tl-padding:56px;padding-left:var(--tl-padding)}
-.timeline-item .dot{position:absolute;left:calc(var(--tl-line) - var(--tl-padding) - 6px);top:50%;transform:translateY(-50%);width:12px;height:12px;border-radius:999px;background:#9aa3ff;box-shadow:0 0 0 6px rgba(99,102,241,.18);z-index:2}
-</style><div class="bg-blobs" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div><header class="sticky"><div class="container" style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:16px"><a href="#top" style="text-decoration:none;color:inherit;font-weight:600;letter-spacing:.2px">Gonzalo Recio</a><nav style="display:flex;gap:20px;font-size:14px"><a href="#about">About</a><a href="#experience">Experience</a><a href="#publications">Publications</a></nav><div></div></div></header><main id="top"><section class="container" style="padding-top:64px"><div class="hero-grid"><div class="fade"><h1 class="h1">Gonzalo Recio Domènech</h1><p class="muted" style="font-size:18px;margin-top:12px;max-width:52ch">I’m a Data Scientist obsessed with shipping useful AI — from quick, clean prototypes to reliable cloud deployments. I care about impact, clarity, and making complex tech feel simple.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:16px"><span class="chip">Applied AI</span><span class="chip">ML&amp;DL</span><span class="chip">LLM Agents</span><span class="chip">Optimization</span><span class="chip">Quantum Computing</span></div><div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:20px"><a class="btn" href="mailto:gonredo@gmail.com">📧 Email</a><a class="btn" href="https://github.com/gonzalorecio" target="_blank" rel="noreferrer">🐙 GitHub</a><a class="btn" href="https://www.linkedin.com/in/gonzalo-recio1337/" target="_blank" rel="noreferrer">💼 LinkedIn</a><a class="btn" href="https://scholar.google.com/citations?hl=en&amp;user=_gpRzjMAAAAJ" target="_blank" rel="noreferrer">📖 Google Scholar</a></div><p class="muted" style="margin-top:12px;font-size:13px">📍 Barcelona, Spain · Europe/Madrid</p></div><div><div style="display:flex;flex-direction:column;gap:14px;align-items:center;justify-content:flex-start"><img src="https://media.licdn.com/dms/image/v2/C4E03AQFdUnxOdgIpng/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1592468787889?e=1761782400&amp;v=beta&amp;t=Q0s6VEv2p-yic8WsCbmuYLCQ9VPxizRqaAz3JpKQGA8" alt="Gonzalo Recio headshot" style="width:112px;height:112px;border-radius:999px;object-fit:cover;border:1px solid rgba(255,255,255,.08);box-shadow:0 6px 24px rgba(0,0,0,.35)"/><div class="card"><div class="muted" style="color:#c7cfff">✦ What drives me</div><h3 style="margin-top:6px">Build fast, learn faster, ship confidently</h3><ul class="muted" style="margin:8px 0 0 18px"><li>Translate papers into working systems (LLMs, GNNs, vision).</li><li>Go from notebook → MVP in days, MVP → pilot in weeks.</li><li>Design clean APIs/pipelines so teams can iterate safely.</li></ul></div></div></div></div></section><section id="about"><div class="container"><div style="margin-bottom:18px"><div class="muted" style="color:#c7cfff;font-size:12px;letter-spacing:.12em;text-transform:uppercase">Who I am</div><h2 class="h2">About me</h2></div><div class="grid" style="grid-template-columns:repeat(3,minmax(0,1fr))"><div class="card"><h3>Now</h3><p class="muted">AI &amp; Innovation — CaixaBank Tech (since 2023). I lead prototypes and pilots with LLMs, GNNs and computer vision; aligning teams and stakeholders to deliver measurable value.</p></div><div class="card"><h3>How I work</h3><p class="muted">Hands‑on, product‑minded, and pragmatic. I value simple baselines, tight feedback loops, strong observability, and thoughtful docs that others can trust.</p></div><div class="card"><h3>Tech I enjoy</h3><p class="muted">Python, PyTorch/TensorFlow, scikit‑learn, LangChain; GCP &amp; AWS; FastAPI; Docker &amp; CI/CD. Topics: LLM agents &amp; evaluation, graphs/GNNs, vision, and optimization.</p></div></div></div></section><section id="experience"><div class="container"><div style="margin-bottom:18px"><div class="muted" style="color:#c7cfff;font-size:12px;letter-spacing:.12em;text-transform:uppercase">Timeline</div><h2 class="h2">Experience</h2></div><div class="timeline"><div class="line"></div><div class="grid" style="gap:18px"><div class="timeline-item rise"><div class="relative" style="position:relative"><span class="dot"></span><div class="card exp-item"><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><strong data-role="true">Artificial Intelligence &amp; Innovation</strong><span class="muted" data-company="true">@ CaixaBank Tech (Full‑time)</span><span style="margin-left:auto" class="muted" data-period="true">Jan 2023 — Present</span></div><p class="muted" style="margin-top:8px">Project manager and hands‑on lead in innovation &amp; AI projects. Implement state‑of‑the‑art models from academic papers and fast‑prototype applications that demonstrate business value. Build Generative AI solutions (NL2SQL, Agents, automated workflows). Share and disseminate knowledge through internal/external events.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px"><span class="tag">LLM Agents</span><span class="tag">NL2SQL</span><span class="tag">GNNs</span><span class="tag">LangChain</span><span class="tag">Cloud (GCP/AWS)</span><span class="tag">FastAPI</span><span class="tag">MLOps</span></div></div></div></div><div class="timeline-item rise" style="animation-delay:.08s"><div class="relative" style="position:relative"><span class="dot"></span><div class="card exp-item"><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><strong data-role="true">Senior Data Scientist &amp; Technical Project Manager</strong><span class="muted" data-company="true">@ inLab FIB — UPC</span><span style="margin-left:auto" class="muted" data-period="true">Oct 2020 — Jan 2023</span></div><p class="muted" style="margin-top:8px">Managed and supervised multiple AI, Data Science and Optimization projects. Deployed ML/DL pipelines to the cloud for clients. Led teams building DNN/CNN/RNN/GAN models; YOLOv5 for image recognition &amp; tracking; and metaheuristics/MiniZinc for scheduling problems (served via APIs).</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px"><span class="tag">TensorFlow</span><span class="tag">PyTorch</span><span class="tag">YOLOv5</span><span class="tag">Time Series</span><span class="tag">Optimization</span><span class="tag">MiniZinc</span><span class="tag">Docker</span><span class="tag">CI/CD</span></div></div></div></div><div class="timeline-item rise" style="animation-delay:.16s"><div class="relative" style="position:relative"><span class="dot"></span><div class="card exp-item"><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><strong data-role="true">AI Researcher &amp; Data Scientist</strong><span class="muted" data-company="true">@ inLab FIB — UPC</span><span style="margin-left:auto" class="muted" data-period="true">Sep 2019 — Oct 2020</span></div><p class="muted" style="margin-top:8px">Routing optimization (CPLEX, metaheuristics) to improve car‑sharing ratios. Built predictive models for bus passenger occupancy using large‑scale ticket validation data (NN/RNN). End‑to‑end ETLs and pipelines for recurring training and forecasting; feature engineering and explainability.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px"><span class="tag">CPLEX</span><span class="tag">Metaheuristics</span><span class="tag">Keras</span><span class="tag">RNN</span><span class="tag">ETL</span><span class="tag">Time Series</span></div></div></div></div><div class="timeline-item rise" style="animation-delay:.24s"><div class="relative" style="position:relative"><span class="dot"></span><div class="card exp-item"><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><strong data-role="true">Junior Researcher — Simulation &amp; Operations Research</strong><span class="muted" data-company="true">@ inLab FIB — UPC</span><span style="margin-left:auto" class="muted" data-period="true">Sep 2016 — Jan 2019</span></div><p class="muted" style="margin-top:8px">Smart mobility projects with Aimsun/Visum; hard‑constrained VRP optimization to minimize required fleets (CPLEX, metaheuristics).</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px"><span class="tag">Simulation</span><span class="tag">Aimsun</span><span class="tag">Visum</span><span class="tag">VRP</span><span class="tag">CPLEX</span></div></div></div></div></div></div></div></section><section id="publications"><div class="container"><div style="margin-bottom:18px"><div class="muted" style="color:#c7cfff;font-size:12px;letter-spacing:.12em;text-transform:uppercase">Selected</div><h2 class="h2">Publications &amp; Press</h2></div><div style="margin-bottom:12px"><a class="btn" href="https://scholar.google.com/citations?hl=en&amp;user=_gpRzjMAAAAJ" target="_blank" rel="noreferrer">📖 Google Scholar profile</a></div><ul class="pub-list" data-testid="pub-list"><li class="pub-card"><div class="pub-pill" aria-hidden="true">SSRN</div><div class="pub-body"><a class="pub-title" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4813774" target="_blank" rel="noreferrer">Deep Learning Methods to Improve the Public Transport Comfort and Safety: Forecasting Bus Passenger Occupation</a><div class="pub-meta">May 2024 <span class="ext">↗</span></div></div></li><li class="pub-card"><div class="pub-pill" aria-hidden="true">Press</div><div class="pub-body"><a class="pub-title" href="https://elpais.com/tecnologia/cronicas-del-intangible/2022-04-22/podemos-predecir-la-ocupacion-que-tendran-los-autobuses.html" target="_blank" rel="noreferrer">Can we predict bus occupancy?</a><div class="pub-meta">El País · 2022 <span class="ext">↗</span></div></div></li><li class="pub-card"><div class="pub-pill" aria-hidden="true">Elsevier</div><div class="pub-body"><a class="pub-title" href="https://www.sciencedirect.com/science/article/pii/S235214652100106X" target="_blank" rel="noreferrer">Assessment of a Shared‑Taxi Routing Service for Disabled People (Barcelona Case Study)</a><div class="pub-meta">Transport Research Procedia · 2020 <span class="ext">↗</span></div></div></li><li class="pub-card"><div class="pub-pill" aria-hidden="true">ACM</div><div class="pub-body"><a class="pub-title" href="https://dl.acm.org/doi/10.5555/3320516.3320854" target="_blank" rel="noreferrer">Barcelona Virtual Mobility Lab: Multimodal Transport Testbed</a><div class="pub-meta">ACM Digital Library <span class="ext">↗</span></div></div></li></ul></div></section></main><footer style="border-top:1px solid rgba(255,255,255,.08);padding:20px 0;margin-top:10px;text-align:center" class="muted">© <span id="year">2025</span> Gonzalo Recio · Built with React/TSX (no deps) · <a class="underline" href="#top">Back to top</a></footer></div>
-  <noscript><div style="max-width:1100px;margin:0 auto;padding:8px 16px;color:#9aa3b2">This site uses tiny animations for polish. Everything still works with JavaScript disabled.</div></noscript>
+/* ─────────────────────────  Layout primitives  ───────────────────────── */
+.container{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+section{padding:84px 0;scroll-margin-top:82px}
+@media(max-width:700px){section{padding:60px 0}}
+
+.eyebrow{display:flex;align-items:center;gap:10px;font:600 12px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+.eyebrow::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line-hi),transparent)}
+.h1{font-size:clamp(34px,6vw,56px);line-height:1.04;letter-spacing:-.028em;font-weight:800;margin:0}
+.h2{font-size:clamp(24px,4vw,34px);line-height:1.15;letter-spacing:-.02em;font-weight:700;margin:10px 0 28px}
+h3{font-size:17px;font-weight:650;letter-spacing:-.01em;margin:0 0 8px}
+p{margin:0}
+.muted{color:var(--muted)}
+.soft{color:var(--ink-soft)}
+.grad{background:linear-gradient(100deg,var(--accent),var(--accent-2) 55%,var(--accent-3));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ─────────────────────────  Header  ───────────────────────── */
+header{position:sticky;top:0;z-index:60;backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);background:color-mix(in srgb,var(--bg) 74%,transparent);border-bottom:1px solid transparent;transition:border-color .25s}
+header.scrolled{border-bottom-color:var(--line)}
+.nav{display:flex;align-items:center;gap:16px;padding:13px 22px;max-width:var(--maxw);margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em}
+.brand .mark{display:grid;place-items:center;width:32px;height:32px;border-radius:10px;border:1px solid var(--line-hi);background:var(--surface-hi);font-size:17px;line-height:1;transition:transform .25s}
+.brand:hover .mark{transform:rotate(-8deg) scale(1.06)}
+.nav-links{display:flex;gap:4px;margin-left:auto}
+.nav-links a{padding:7px 12px;border-radius:9px;font-size:14px;font-weight:500;color:var(--ink-soft);transition:color .18s,background .18s}
+.nav-links a:hover{color:var(--ink);background:var(--surface)}
+.nav-links a.active{color:var(--ink);background:var(--surface-hi)}
+#themeBtn{display:grid;place-items:center;width:34px;height:34px;flex:0 0 auto;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:15px;line-height:1;transition:background .18s,border-color .18s}
+#themeBtn:hover{background:var(--surface-hi);border-color:var(--line-hi)}
+@media(max-width:700px){.nav-links a{padding:7px 9px;font-size:13px}.brand span.name{display:none}}
+@media(max-width:520px){.nav-links a[data-opt]{display:none}}
+
+/* ─────────────────────────  Cards & atoms  ───────────────────────── */
+.card{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);padding:22px;transition:border-color .22s,background .22s,transform .22s}
+.card:hover{border-color:var(--line-hi);background:var(--surface-hi)}
+.grid{display:grid;gap:18px}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:900px){.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:660px){.g3,.g2{grid-template-columns:1fr}}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 15px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-size:14px;font-weight:550;color:var(--ink);transition:transform .18s,border-color .18s,background .18s,box-shadow .18s}
+.btn:hover{transform:translateY(-2px);border-color:var(--line-hi);background:var(--surface-hi);box-shadow:var(--shadow)}
+.btn.primary{border-color:transparent;background:linear-gradient(100deg,var(--accent),var(--accent-2));color:#fff}
+.btn.primary:hover{filter:brightness(1.08)}
+
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 13px;font-size:13px;font-weight:500;color:var(--ink-soft)}
+.tag{display:inline-flex;border:1px solid var(--line);background:var(--surface);border-radius:7px;padding:3px 9px;font:500 12px/1.5 var(--mono);color:var(--ink-soft)}
+.stack{display:flex;flex-wrap:wrap;gap:8px}
+
+/* ─────────────────────────  Hero  ───────────────────────── */
+.hero{display:grid;gap:40px;grid-template-columns:1fr;padding-top:58px;padding-bottom:56px}
+@media(min-width:920px){.hero{grid-template-columns:1.45fr .85fr;align-items:start;gap:56px}}
+.status{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;font:500 13px/1.4 var(--mono);color:var(--ink-soft);margin-bottom:20px}
+.dot{width:7px;height:7px;border-radius:999px;background:var(--accent-3);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent-3) 22%,transparent);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.role{font-size:clamp(17px,2.4vw,21px);font-weight:600;margin-top:14px;letter-spacing:-.01em}
+.lede{color:var(--ink-soft);font-size:17px;margin-top:14px;max-width:56ch}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:20px;font-size:13.5px;color:var(--muted)}
+
+.avatar-wrap{position:relative;width:168px;margin-inline:auto}
+.avatar-wrap::before{content:"";position:absolute;inset:-10px;border-radius:999px;background:conic-gradient(from 180deg,var(--accent),var(--accent-2),var(--accent-3),var(--accent));filter:blur(16px);opacity:.55;animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(1turn)}}
+.avatar{position:relative;width:168px;height:168px;border-radius:999px;object-fit:cover;border:3px solid color-mix(in srgb,var(--bg) 82%,#fff);box-shadow:var(--shadow)}
+.side{display:flex;flex-direction:column;gap:20px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center}
+.fact{border:1px solid var(--line);background:var(--surface);border-radius:13px;padding:13px 8px}
+.fact b{display:block;font:750 21px/1.2 Inter,sans-serif;letter-spacing:-.02em}
+.fact span{font:500 11px/1.4 var(--mono);color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+
+/* Terminal card */
+.term{border:1px solid var(--line);background:color-mix(in srgb,var(--bg) 70%,#000 6%);border-radius:14px;overflow:hidden;font:400 12.5px/1.85 var(--mono);box-shadow:var(--shadow)}
+html[data-theme="light"] .term{background:#fff}
+.term-bar{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1px solid var(--line);background:var(--surface)}
+.term-bar i{width:9px;height:9px;border-radius:999px;background:var(--line-hi)}
+.term-bar span{margin-left:6px;font-size:11px;color:var(--muted);letter-spacing:.04em}
+.term-body{padding:14px 16px;overflow-x:auto}
+.term-body div{white-space:pre}
+.tk-key{color:var(--accent)}
+.tk-str{color:var(--accent-3)}
+.tk-num{color:var(--accent-2)}
+.tk-dim{color:var(--muted)}
+
+/* ─────────────────────────  Projects  ───────────────────────── */
+.feature{display:grid;gap:0;grid-template-columns:1fr;border:1px solid var(--line);background:var(--surface);border-radius:20px;overflow:hidden;margin-bottom:18px;transition:border-color .22s,background .22s}
+.feature:hover{border-color:var(--line-hi);background:var(--surface-hi)}
+@media(min-width:860px){.feature{grid-template-columns:1.25fr .75fr}}
+.feature-main{padding:28px}
+.feature-side{padding:28px;border-top:1px solid var(--line);background:color-mix(in srgb,var(--bg) 55%,transparent)}
+@media(min-width:860px){.feature-side{border-top:0;border-left:1px solid var(--line)}}
+.feature h3{font-size:20px;letter-spacing:-.015em}
+.badge{display:inline-flex;align-items:center;gap:6px;font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-3);border:1px solid color-mix(in srgb,var(--accent-3) 35%,transparent);background:color-mix(in srgb,var(--accent-3) 12%,transparent);border-radius:999px;padding:5px 10px;margin-bottom:14px}
+.bullets{list-style:none;display:grid;gap:10px;margin-top:16px}
+.bullets li{position:relative;padding-left:22px;font-size:14.5px;color:var(--ink-soft)}
+.bullets li::before{content:"▸";position:absolute;left:0;top:-1px;color:var(--accent);font-size:13px}
+
+.proj{display:flex;flex-direction:column;height:100%}
+.proj .top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.proj .ico{font-size:20px;line-height:1}
+.proj h3{margin:0;font-size:15.5px}
+.proj p{color:var(--muted);font-size:14px;flex:1}
+.proj .stack{margin-top:14px}
+.arrow{margin-left:auto;color:var(--muted);transition:transform .2s,color .2s}
+.proj:hover .arrow,.feature:hover .arrow{transform:translate(3px,-3px);color:var(--accent)}
+
+/* ─────────────────────────  Stack section  ───────────────────────── */
+.stack-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.stack-card h3{display:flex;align-items:center;gap:9px;font:600 13px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:14px}
+.stack-card .stack{gap:7px}
+
+/* ─────────────────────────  Timeline  ───────────────────────── */
+.timeline{position:relative;display:grid;gap:16px;padding-left:34px}
+.timeline::before{content:"";position:absolute;left:7px;top:12px;bottom:12px;width:2px;border-radius:2px;background:linear-gradient(180deg,var(--accent),var(--accent-2) 45%,transparent)}
+.tl-item{position:relative}
+.tl-item::before{content:"";position:absolute;left:-34px;top:26px;width:16px;height:16px;border-radius:999px;background:var(--bg);border:2px solid var(--accent);box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 15%,transparent)}
+.tl-item.now::before{background:var(--accent)}
+.job-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 10px}
+.job-head strong{font-size:16.5px;font-weight:650;letter-spacing:-.01em}
+.period{margin-left:auto;font:500 12.5px/1.5 var(--mono);color:var(--muted);white-space:nowrap}
+.company{color:var(--accent-ink);font-weight:550;font-size:14.5px}
+.tl-item p{margin-top:10px;color:var(--ink-soft);font-size:14.5px}
+.tl-item .stack{margin-top:14px}
+@media(max-width:600px){.period{margin-left:0;width:100%}}
+
+/* ─────────────────────────  Publications  ───────────────────────── */
+.pubs{list-style:none;display:grid;gap:12px}
+.pub{position:relative;display:flex;gap:14px;align-items:flex-start;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:16px 18px;overflow:hidden;transition:border-color .2s,transform .2s,background .2s}
+.pub::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--accent),var(--accent-2))}
+.pub:hover{transform:translateY(-2px);border-color:var(--line-hi);background:var(--surface-hi)}
+.pill{flex:0 0 auto;font:500 11px/1 var(--mono);border:1px solid var(--line);border-radius:999px;padding:6px 9px;color:var(--ink-soft);background:var(--surface)}
+.pub-title{display:block;font-weight:550;font-size:15px;letter-spacing:-.005em}
+.pub:hover .pub-title{color:var(--accent-ink)}
+.pub-meta{display:block;margin-top:5px;font:400 12.5px/1.5 var(--mono);color:var(--muted)}
+
+/* ─────────────────────────  Contact / footer  ───────────────────────── */
+.contact{text-align:center;border:1px solid var(--line);background:var(--surface);border-radius:22px;padding:52px 26px}
+.contact .h2{margin-bottom:12px}
+footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;color:var(--muted)}
+.foot{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.foot a:hover{color:var(--ink)}
+
+/* ─────────────────────────  Reveal  ───────────────────────── */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s cubic-bezier(.2,.7,.3,1),transform .6s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="blobs" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
+
+<header id="hdr">
+  <nav class="nav">
+    <a class="brand" href="#top"><span class="mark" aria-hidden="true">🧠</span><span class="name">Gonzalo Recio</span></a>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#stack">Stack</a>
+      <a href="#experience" data-opt>Experience</a>
+      <a href="#research" data-opt>Research</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button id="themeBtn" type="button" aria-label="Toggle colour theme" title="Toggle theme">🌙</button>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ───────────  Hero  ─────────── -->
+  <section class="container hero">
+    <div class="reveal">
+      <div class="status"><span class="dot"></span> shipping AI agents to production</div>
+      <h1 class="h1">Gonzalo Recio <span class="grad">Domènech</span></h1>
+      <p class="role soft">AI Lead — Head of AI &amp; Innovation <span class="muted">@</span> <span class="grad">Valeria</span></p>
+      <p class="lede">AI engineer who builds systems, not slides. A decade turning research into production — deep learning, computer vision, reinforcement learning and combinatorial optimization, now mostly LLM agents that thousands of real users talk to every day.</p>
+      <div class="stack" style="margin-top:22px">
+        <span class="chip">🤖 LLM Agents</span>
+        <span class="chip">🧠 Deep Learning</span>
+        <span class="chip">👁️ Computer Vision</span>
+        <span class="chip">⚙️ MLOps &amp; Evals</span>
+        <span class="chip">🧮 Optimization</span>
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="#work">Explore the work ↓</a>
+        <a class="btn" href="https://github.com/gonzalorecio" target="_blank" rel="noreferrer noopener">GitHub ↗</a>
+        <a class="btn" href="https://www.linkedin.com/in/gonzalo-recio1337/" target="_blank" rel="noreferrer noopener">LinkedIn ↗</a>
+        <a class="btn" href="https://scholar.google.com/citations?hl=en&amp;user=_gpRzjMAAAAJ" target="_blank" rel="noreferrer noopener">Scholar ↗</a>
+      </div>
+      <div class="meta">
+        <span>📍 Barcelona, Spain</span>
+        <span>🕑 Europe/Madrid</span>
+        <span>🎓 MSc Artificial Intelligence — UPC</span>
+      </div>
+    </div>
+
+    <aside class="side reveal" style="transition-delay:.1s">
+      <div class="avatar-wrap">
+        <img class="avatar" src="https://avatars.githubusercontent.com/u/12600577?v=4"
+             alt="Portrait of Gonzalo Recio" width="168" height="168" fetchpriority="high" />
+      </div>
+      <div class="facts">
+        <div class="fact"><b id="yearsExp">9+</b><span>Years</span></div>
+        <div class="fact"><b>4</b><span>Papers</span></div>
+        <div class="fact"><b>22</b><span>Repos</span></div>
+      </div>
+      <div class="term" aria-hidden="true">
+        <div class="term-bar"><i></i><i></i><i></i><span>whoami.py</span></div>
+        <div class="term-body">
+<div><span class="tk-dim">&gt;&gt;&gt;</span> engineer</div>
+<div>{</div>
+<div>  <span class="tk-key">"role"</span>: <span class="tk-str">"AI Lead"</span>,</div>
+<div>  <span class="tk-key">"focus"</span>: [<span class="tk-str">"agents"</span>, <span class="tk-str">"evals"</span>],</div>
+<div>  <span class="tk-key">"lang"</span>:  <span class="tk-str">"python"</span>,</div>
+<div>  <span class="tk-key">"base"</span>:  <span class="tk-str">"Barcelona"</span>,</div>
+<div>  <span class="tk-key">"ship"</span>:  <span class="tk-num">True</span></div>
+<div>}</div>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ───────────  Work  ─────────── -->
+  <section id="work">
+    <div class="container">
+      <div class="reveal">
+        <div class="eyebrow">Selected work</div>
+        <h2 class="h2">What I build</h2>
+      </div>
+
+      <!-- Featured: production agents -->
+      <article class="feature reveal">
+        <div class="feature-main">
+          <span class="badge">● In production</span>
+          <h3>Multi-agent LLM platform for HR &amp; payroll</h3>
+          <p class="muted" style="margin-top:10px;font-size:14.5px">The AI system behind <strong class="soft">Valeria</strong> — an AI-native HR and payroll platform where the whole product surface is a conversation. I lead the department that designs, ships and operates it.</p>
+          <ul class="bullets">
+            <li>Multi-agent architecture: specialised agents per business flow, configurable per customer, orchestrated over a messaging channel.</li>
+            <li>Model routing across providers with feature-flagged failover, so a latency spike on one vendor never becomes an outage.</li>
+            <li>Document understanding pipelines that turn messy real-world PDFs into structured, validated records.</li>
+            <li>Evaluation suites, tracing and LLM observability — because "it felt better" is not a metric.</li>
+            <li>Human-in-the-loop gates and guardrails on every irreversible action.</li>
+          </ul>
+        </div>
+        <div class="feature-side">
+          <h3 style="font:600 12px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)">Stack</h3>
+          <div class="stack" style="margin-top:12px">
+            <span class="tag">Python</span><span class="tag">LangChain</span><span class="tag">Claude</span>
+            <span class="tag">GPT</span><span class="tag">Gemini</span><span class="tag">RAG</span>
+            <span class="tag">Evals</span><span class="tag">OpenTelemetry</span><span class="tag">Feature flags</span>
+            <span class="tag">Postgres</span><span class="tag">Azure</span><span class="tag">GCP</span>
+          </div>
+          <h3 style="font:600 12px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin-top:24px">Role</h3>
+          <p class="muted" style="margin-top:10px;font-size:14px">AI strategy, architecture, hands-on engineering, and building the team.</p>
+        </div>
+      </article>
+
+      <!-- Featured: GenAI at CaixaBank Tech -->
+      <article class="feature reveal">
+        <div class="feature-main">
+          <span class="badge" style="color:var(--accent-2);border-color:color-mix(in srgb,var(--accent-2) 35%,transparent);background:color-mix(in srgb,var(--accent-2) 12%,transparent)">Enterprise R&amp;D</span>
+          <h3>Generative AI prototypes at banking scale</h3>
+          <p class="muted" style="margin-top:10px;font-size:14.5px">Three years inside <strong class="soft">CaixaBank Tech</strong>'s AI &amp; Innovation unit, taking papers off arXiv and turning them into pilots that convinced stakeholders to fund the real thing.</p>
+          <ul class="bullets">
+            <li>NL2SQL systems letting non-technical teams query warehouses in plain language.</li>
+            <li>Agentic workflows automating multi-step internal processes end to end.</li>
+            <li>Graph neural networks over relational banking data for detection and ranking tasks.</li>
+            <li>Reproducible research-to-prototype pipeline: paper → notebook → API → pilot.</li>
+          </ul>
+        </div>
+        <div class="feature-side">
+          <h3 style="font:600 12px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)">Stack</h3>
+          <div class="stack" style="margin-top:12px">
+            <span class="tag">LangChain</span><span class="tag">PyTorch</span><span class="tag">GNNs</span>
+            <span class="tag">NL2SQL</span><span class="tag">FastAPI</span><span class="tag">Docker</span>
+            <span class="tag">GCP</span><span class="tag">AWS</span><span class="tag">MLOps</span>
+          </div>
+          <h3 style="font:600 12px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin-top:24px">Role</h3>
+          <p class="muted" style="margin-top:10px;font-size:14px">Technical lead &amp; project manager — hands on the keyboard throughout.</p>
+        </div>
+      </article>
+
+      <!-- Featured: optimization & forecasting -->
+      <article class="feature reveal">
+        <div class="feature-main">
+          <span class="badge" style="color:var(--accent);border-color:color-mix(in srgb,var(--accent) 35%,transparent);background:color-mix(in srgb,var(--accent) 12%,transparent)">Applied research</span>
+          <h3>Mobility forecasting &amp; routing optimization</h3>
+          <p class="muted" style="margin-top:10px;font-size:14.5px">At <strong class="soft">inLab FIB — UPC</strong>, deep learning and operations research applied to how a city actually moves. Peer-reviewed, deployed, and covered by the press.</p>
+          <ul class="bullets">
+            <li>Bus passenger occupancy forecasting from millions of ticket validations (RNN/DNN + feature engineering + explainability).</li>
+            <li>Hard-constrained vehicle routing to minimise fleet size — CPLEX and custom metaheuristics.</li>
+            <li>Shared-taxi routing for people with reduced mobility, evaluated on a real Barcelona case study.</li>
+            <li>YOLOv5 detection and tracking pipelines; scheduling solved with MiniZinc and served over APIs.</li>
+          </ul>
+        </div>
+        <div class="feature-side">
+          <h3 style="font:600 12px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)">Stack</h3>
+          <div class="stack" style="margin-top:12px">
+            <span class="tag">TensorFlow</span><span class="tag">Keras</span><span class="tag">YOLOv5</span>
+            <span class="tag">CPLEX</span><span class="tag">MiniZinc</span><span class="tag">Metaheuristics</span>
+            <span class="tag">Time series</span><span class="tag">ETL</span>
+          </div>
+          <h3 style="font:600 12px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin-top:24px">Output</h3>
+          <p class="muted" style="margin-top:10px;font-size:14px">4 publications · coverage in <em>El País</em>.</p>
+        </div>
+      </article>
+
+      <!-- Open source grid -->
+      <div class="reveal" style="margin:44px 0 20px">
+        <div class="eyebrow">Open source</div>
+        <h2 class="h2" style="margin-bottom:0">Things I've built in public</h2>
+      </div>
+      <div class="grid g3">
+
+        <a class="card proj reveal" href="https://github.com/gonzalorecio/MNIST-latent-representations" target="_blank" rel="noreferrer noopener">
+          <div class="top"><span class="ico">🔬</span><h3>MNIST Latent Representations</h3><span class="arrow">↗</span></div>
+          <p>Dimensionality reduction and latent-space geometry compared head to head: plain autoencoders, CNNs, VAEs and classical projections.</p>
+          <div class="stack"><span class="tag">PyTorch</span><span class="tag">VAE</span><span class="tag">CNN</span></div>
+        </a>
+
+        <a class="card proj reveal" style="transition-delay:.05s" href="https://github.com/gonzalorecio/Deep-Reinforcement-Learning-Open-domain-chatbot" target="_blank" rel="noreferrer noopener">
+          <div class="top"><span class="ico">💬</span><h3>Deep RL Open-Domain Chatbot</h3><span class="arrow">↗</span></div>
+          <p>Conversational agent fine-tuned with deep reinforcement learning — rewarding coherence and engagement instead of raw likelihood.</p>
+          <div class="stack"><span class="tag">RL</span><span class="tag">NLP</span><span class="tag">Dialogue</span></div>
+        </a>
+
+        <a class="card proj reveal" style="transition-delay:.1s" href="https://github.com/gonzalorecio/insect-detection-demo-app" target="_blank" rel="noreferrer noopener">
+          <div class="top"><span class="ico">🐞</span><h3>Insect Detection App</h3><span class="arrow">↗</span></div>
+          <p>Automatic counting of insects (whiteflies included) on sticky traps — object detection wrapped in a demo app agronomists can actually use.</p>
+          <div class="stack"><span class="tag">YOLO</span><span class="tag">Vision</span><span class="tag">Python</span></div>
+        </a>
+
+        <a class="card proj reveal" href="https://github.com/gonzalorecio/Protein-Docking-Poses-Consensus-Essence-Ligand-Encoding" target="_blank" rel="noreferrer noopener">
+          <div class="top"><span class="ico">🧬</span><h3>Protein Docking Consensus</h3><span class="arrow">↗</span></div>
+          <p>Consensus scoring across docking poses using an essence-based ligand encoding — ML applied to structural bioinformatics.</p>
+          <div class="stack"><span class="tag">Bioinformatics</span><span class="tag">ML</span></div>
+        </a>
+
+        <a class="card proj reveal" style="transition-delay:.05s" href="https://github.com/gonzalorecio/logistics-optimizer" target="_blank" rel="noreferrer noopener">
+          <div class="top"><span class="ico">🚚</span><h3>Logistics Optimizer</h3><span class="arrow">↗</span></div>
+          <p>Routing and fleet-assignment experiments where constraint programming meets metaheuristics on messy real-world instances.</p>
+          <div class="stack"><span class="tag">VRP</span><span class="tag">CP</span><span class="tag">Heuristics</span></div>
+        </a>
+
+        <a class="card proj reveal" style="transition-delay:.1s" href="https://github.com/gonzalorecio?tab=repositories" target="_blank" rel="noreferrer noopener">
+          <div class="top"><span class="ico">📦</span><h3>More on GitHub</h3><span class="arrow">↗</span></div>
+          <p>Deep learning, object recognition, human language engineering, unsupervised &amp; reinforcement learning — the MSc in AI, in public.</p>
+          <div class="stack"><span class="tag">22 repos</span></div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────  Stack  ─────────── -->
+  <section id="stack">
+    <div class="container">
+      <div class="reveal">
+        <div class="eyebrow">Toolbox</div>
+        <h2 class="h2">Technical stack</h2>
+      </div>
+      <div class="stack-grid">
+        <div class="card stack-card reveal">
+          <h3>🤖 AI &amp; LLM</h3>
+          <div class="stack">
+            <span class="tag">LangChain</span><span class="tag">Claude</span><span class="tag">GPT</span>
+            <span class="tag">Gemini</span><span class="tag">Agents</span><span class="tag">RAG</span>
+            <span class="tag">Evals</span><span class="tag">Prompt eng.</span><span class="tag">Fine-tuning</span>
+          </div>
+        </div>
+        <div class="card stack-card reveal" style="transition-delay:.05s">
+          <h3>🧠 ML &amp; DL</h3>
+          <div class="stack">
+            <span class="tag">PyTorch</span><span class="tag">TensorFlow</span><span class="tag">Keras</span>
+            <span class="tag">scikit-learn</span><span class="tag">CNN</span><span class="tag">RNN</span>
+            <span class="tag">GNN</span><span class="tag">GAN</span><span class="tag">RL</span><span class="tag">YOLO</span>
+          </div>
+        </div>
+        <div class="card stack-card reveal" style="transition-delay:.1s">
+          <h3>⚙️ Engineering</h3>
+          <div class="stack">
+            <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">Flask</span>
+            <span class="tag">Postgres</span><span class="tag">Docker</span><span class="tag">CI/CD</span>
+            <span class="tag">Git</span><span class="tag">REST APIs</span>
+          </div>
+        </div>
+        <div class="card stack-card reveal" style="transition-delay:.05s">
+          <h3>☁️ Cloud &amp; Ops</h3>
+          <div class="stack">
+            <span class="tag">GCP</span><span class="tag">Azure</span><span class="tag">AWS</span>
+            <span class="tag">Vertex AI</span><span class="tag">Azure AI</span><span class="tag">OpenTelemetry</span>
+            <span class="tag">Datadog</span><span class="tag">MLOps</span>
+          </div>
+        </div>
+        <div class="card stack-card reveal" style="transition-delay:.1s">
+          <h3>🧮 Optimization</h3>
+          <div class="stack">
+            <span class="tag">CPLEX</span><span class="tag">MiniZinc</span><span class="tag">Metaheuristics</span>
+            <span class="tag">VRP</span><span class="tag">Scheduling</span><span class="tag">Simulation</span>
+          </div>
+        </div>
+        <div class="card stack-card reveal" style="transition-delay:.15s">
+          <h3>⚛️ Also curious about</h3>
+          <div class="stack">
+            <span class="tag">Quantum computing</span><span class="tag">Qiskit</span>
+            <span class="tag">Graph theory</span><span class="tag">Explainability</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────  Experience  ─────────── -->
+  <section id="experience">
+    <div class="container">
+      <div class="reveal">
+        <div class="eyebrow">Timeline</div>
+        <h2 class="h2">Experience</h2>
+      </div>
+
+      <div class="timeline">
+        <article class="card tl-item now reveal">
+          <div class="job-head">
+            <strong>AI Lead — Head of AI &amp; Innovation</strong>
+            <span class="company">Valeria</span>
+            <span class="period">Oct 2025 — Present</span>
+          </div>
+          <p>Lead the AI &amp; Innovation department of an AI-native HR and payroll platform. Own the AI roadmap and the agent stack end to end: multi-agent architecture, model selection and cross-provider failover, document-extraction pipelines, evaluation suites and LLM observability — plus hiring and growing the team.</p>
+          <div class="stack">
+            <span class="tag">LLM Agents</span><span class="tag">LangChain</span><span class="tag">Evals</span>
+            <span class="tag">Observability</span><span class="tag">Azure AI</span><span class="tag">Vertex AI</span><span class="tag">Team lead</span>
+          </div>
+        </article>
+
+        <article class="card tl-item reveal">
+          <div class="job-head">
+            <strong>Artificial Intelligence &amp; Innovation</strong>
+            <span class="company">CaixaBank Tech</span>
+            <span class="period">Jan 2023 — Oct 2025</span>
+          </div>
+          <p>Technical lead and project manager for AI and innovation initiatives. Implemented state-of-the-art models straight from research papers and fast-prototyped applications that proved business value. Built Generative AI solutions — NL2SQL, agents, automated workflows — and disseminated the work through internal and external talks.</p>
+          <div class="stack">
+            <span class="tag">GenAI</span><span class="tag">NL2SQL</span><span class="tag">GNNs</span>
+            <span class="tag">LangChain</span><span class="tag">GCP/AWS</span><span class="tag">FastAPI</span><span class="tag">MLOps</span>
+          </div>
+        </article>
+
+        <article class="card tl-item reveal">
+          <div class="job-head">
+            <strong>Senior Data Scientist &amp; Technical Project Manager</strong>
+            <span class="company">inLab FIB — UPC</span>
+            <span class="period">Oct 2020 — Jan 2023</span>
+          </div>
+          <p>Managed and supervised multiple AI, Data Science and Optimization projects. Deployed ML/DL pipelines to the cloud for clients. Led teams building DNN/CNN/RNN/GAN models, YOLOv5 for image recognition and tracking, and metaheuristics/MiniZinc for scheduling problems served through APIs.</p>
+          <div class="stack">
+            <span class="tag">TensorFlow</span><span class="tag">PyTorch</span><span class="tag">YOLOv5</span>
+            <span class="tag">Time series</span><span class="tag">Optimization</span><span class="tag">MiniZinc</span><span class="tag">Docker</span>
+          </div>
+        </article>
+
+        <article class="card tl-item reveal">
+          <div class="job-head">
+            <strong>AI Researcher &amp; Data Scientist</strong>
+            <span class="company">inLab FIB — UPC</span>
+            <span class="period">Sep 2019 — Oct 2020</span>
+          </div>
+          <p>Routing optimization (CPLEX, metaheuristics) to improve car-sharing ratios. Built predictive models for bus passenger occupancy from large-scale ticket validation data. End-to-end ETLs and pipelines for recurring training and forecasting, with feature engineering and explainability.</p>
+          <div class="stack">
+            <span class="tag">CPLEX</span><span class="tag">Metaheuristics</span><span class="tag">Keras</span>
+            <span class="tag">RNN</span><span class="tag">ETL</span><span class="tag">Time series</span>
+          </div>
+        </article>
+
+        <article class="card tl-item reveal">
+          <div class="job-head">
+            <strong>Junior Researcher — Simulation &amp; Operations Research</strong>
+            <span class="company">inLab FIB — UPC</span>
+            <span class="period">Sep 2016 — Jan 2019</span>
+          </div>
+          <p>Smart mobility projects with Aimsun and Visum; hard-constrained vehicle routing optimization to minimise the required fleet size (CPLEX, metaheuristics).</p>
+          <div class="stack">
+            <span class="tag">Simulation</span><span class="tag">Aimsun</span><span class="tag">Visum</span><span class="tag">VRP</span><span class="tag">CPLEX</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────  Research  ─────────── -->
+  <section id="research">
+    <div class="container">
+      <div class="reveal">
+        <div class="eyebrow">Peer-reviewed &amp; press</div>
+        <h2 class="h2">Research</h2>
+      </div>
+      <div class="reveal" style="margin-bottom:16px">
+        <a class="btn" href="https://scholar.google.com/citations?hl=en&amp;user=_gpRzjMAAAAJ" target="_blank" rel="noreferrer noopener">📖 Google Scholar profile ↗</a>
+      </div>
+      <ul class="pubs">
+        <li class="reveal"><a class="pub" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4813774" target="_blank" rel="noreferrer noopener">
+          <span class="pill">SSRN</span>
+          <span>
+            <span class="pub-title">Deep Learning Methods to Improve Public Transport Comfort and Safety: Forecasting Bus Passenger Occupation</span>
+            <span class="pub-meta">May 2024 ↗</span>
+          </span>
+        </a></li>
+        <li class="reveal"><a class="pub" href="https://elpais.com/tecnologia/cronicas-del-intangible/2022-04-22/podemos-predecir-la-ocupacion-que-tendran-los-autobuses.html" target="_blank" rel="noreferrer noopener">
+          <span class="pill">PRESS</span>
+          <span>
+            <span class="pub-title">¿Podemos predecir la ocupación que tendrán los autobuses?</span>
+            <span class="pub-meta">El País · 2022 ↗</span>
+          </span>
+        </a></li>
+        <li class="reveal"><a class="pub" href="https://www.sciencedirect.com/science/article/pii/S235214652100106X" target="_blank" rel="noreferrer noopener">
+          <span class="pill">ELSEVIER</span>
+          <span>
+            <span class="pub-title">Assessment of a Shared-Taxi Routing Service for Disabled People — Barcelona Case Study</span>
+            <span class="pub-meta">Transportation Research Procedia · 2020 ↗</span>
+          </span>
+        </a></li>
+        <li class="reveal"><a class="pub" href="https://dl.acm.org/doi/10.5555/3320516.3320854" target="_blank" rel="noreferrer noopener">
+          <span class="pill">ACM</span>
+          <span>
+            <span class="pub-title">Barcelona Virtual Mobility Lab: A Multimodal Transport Testbed</span>
+            <span class="pub-meta">ACM Digital Library ↗</span>
+          </span>
+        </a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ───────────  Contact  ─────────── -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact reveal">
+        <div class="eyebrow" style="justify-content:center">Say hi</div>
+        <h2 class="h2">Let's build something useful</h2>
+        <p class="muted" style="max-width:54ch;margin:0 auto 26px">Always happy to talk about LLM agents, evaluation, applied ML — or to trade notes on shipping AI that survives contact with real users.</p>
+        <div class="actions" style="justify-content:center">
+          <a class="btn primary" href="mailto:gonzalo.recio.domenech@gmail.com">✉️ gonzalo.recio.domenech@gmail.com</a>
+          <a class="btn" href="https://www.linkedin.com/in/gonzalo-recio1337/" target="_blank" rel="noreferrer noopener">LinkedIn ↗</a>
+          <a class="btn" href="https://github.com/gonzalorecio" target="_blank" rel="noreferrer noopener">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container foot">
+    <span>© <span id="year">2026</span> Gonzalo Recio Domènech</span>
+    <span>Built by hand · no frameworks · <a href="#top">Back to top ↑</a></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── Auto-updating year ── */
+  var y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+
+  /* ── Years of experience, computed from Sep 2016 ── */
+  var exp = document.getElementById('yearsExp');
+  if (exp) {
+    var start = new Date(2016, 8, 1); // Sep 2016
+    var years = Math.floor((Date.now() - start.getTime()) / 31557600000);
+    exp.textContent = years + '+';
+  }
+
+  /* ── Theme toggle (remembers choice, defaults to system) ── */
+  var root = document.documentElement;
+  var btn = document.getElementById('themeBtn');
+  var media = window.matchMedia('(prefers-color-scheme: light)');
+
+  function paint(theme) {
+    root.setAttribute('data-theme', theme);
+    if (btn) {
+      // Icon shows the mode you'd switch TO, not the current one.
+      var dark = theme === 'dark';
+      btn.textContent = dark ? '☀️' : '🌙';
+      btn.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+      btn.setAttribute('title', dark ? 'Light theme' : 'Dark theme');
+    }
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'light' ? '#f7f8fc' : '#080d18');
+  }
+
+  var saved = null;
+  try { saved = localStorage.getItem('theme'); } catch (e) {}
+  paint(saved || (media.matches ? 'light' : 'dark'));
+
+  if (btn) {
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      paint(next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  }
+  media.addEventListener('change', function (e) {
+    var stored = null;
+    try { stored = localStorage.getItem('theme'); } catch (err) {}
+    if (!stored) paint(e.matches ? 'light' : 'dark');
+  });
+
+  /* ── Header border on scroll ── */
+  var hdr = document.getElementById('hdr');
+  function onScroll() { hdr.classList.toggle('scrolled', window.scrollY > 8); }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* ── Reveal on scroll ── */
+  var items = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    Array.prototype.forEach.call(items, function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    Array.prototype.forEach.call(items, function (el) { io.observe(el); });
+  }
+
+  /* ── Active nav link ── */
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
+  var sections = links
+    .map(function (a) { return document.querySelector(a.getAttribute('href')); })
+    .filter(Boolean);
+
+  if ('IntersectionObserver' in window && sections.length) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        links.forEach(function (a) {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(function (s) { spy.observe(s); });
+  }
+})();
+</script>
 </body>
 </html>
