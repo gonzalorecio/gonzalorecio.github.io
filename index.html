@@ -201,6 +201,7 @@ html[data-theme="light"] .term{background:#fff}
 .tk-dim{color:var(--muted)}
 .tk-warn{color:var(--warn)}
 .tk-caret{color:var(--accent);animation:blink 1.1s steps(1) infinite}
+.tk-hit{color:var(--accent);font-weight:600}
 @keyframes blink{0%,50%{opacity:1}50.01%,100%{opacity:0}}
 
 /* ─────────────────────────  Projects  ───────────────────────── */
@@ -332,7 +333,12 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
 <div><span class="tk-warn">UserWarning</span>: loss still decreasing</div>
 <div><span class="tk-dim">&gt;&gt;&gt;</span> me.stop()</div>
 <div><span class="tk-warn">NotImplementedError</span></div>
-<div><span class="tk-dim">&gt;&gt;&gt;</span> <span class="tk-caret">▌</span></div>
+<div> </div>
+<div><span class="tk-dim">&gt;&gt;&gt;</span> <span id="genCmd"></span><span class="tk-caret" id="genCaret">▌</span></div>
+<div> </div>
+<div id="genRows"><div> </div><div> </div><div> </div></div>
+<div> </div>
+<div id="genOut"> </div>
         </div>
       </div>
     </aside>
@@ -649,6 +655,110 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
   /* ── Keep the current epoch's year label in step with the calendar. ── */
   var epYear = document.getElementById('epYear');
   if (epYear) epYear.textContent = new Date().getFullYear();
+
+  /* ── Next-token sampler in the terminal card.
+        Each step holds a small distribution; we sample from it proportionally,
+        so the sentence really is different run to run rather than replayed. ── */
+  (function sampler() {
+    var cmd = document.getElementById('genCmd');
+    var caret = document.getElementById('genCaret');
+    var rows = document.getElementById('genRows');
+    var out = document.getElementById('genOut');
+    if (!cmd || !rows || !out) return;
+
+    var PROMPT = 'me.generate("what’s next?")';
+    var CELLS = 10;
+    var PAD = 11;
+    var STEPS = [
+      [['more', 0.58], ['better', 0.27], ['faster', 0.15]],
+      [['agents', 0.51], ['evals', 0.33], ['pipelines', 0.16]],
+      [[', fewer', 0.52], [', plus', 0.30], [', not', 0.18]],
+      [['demos', 0.46], ['slides', 0.33], ['dashboards', 0.21]]
+    ];
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var timer = null;
+    function wait(ms) {
+      return new Promise(function (res) { timer = setTimeout(res, ms); });
+    }
+
+    function pick(dist) {
+      var r = Math.random(), acc = 0;
+      for (var i = 0; i < dist.length; i++) {
+        acc += dist[i][1];
+        if (r <= acc) return i;
+      }
+      return dist.length - 1;
+    }
+
+    function bar(p) {
+      var n = Math.max(1, Math.round(p * CELLS));
+      return '<span class="tk-str">' + new Array(n + 1).join('█') + '</span>' +
+             '<span class="tk-dim">' + new Array(CELLS - n + 1).join('░') + '</span>';
+    }
+
+    function pad(s) { return (s + '           ').slice(0, PAD); }
+
+    function paint(dist, chosen) {
+      rows.innerHTML = dist.map(function (d, i) {
+        var hit = i === chosen;
+        return '<div>  ' +
+          '<span class="' + (hit ? 'tk-hit' : '') + '">' + pad(d[0]) + '</span>' +
+          bar(d[1]) + '  ' +
+          '<span class="tk-num">' + d[1].toFixed(2) + '</span>' +
+          (hit ? ' <span class="tk-hit">←</span>' : '') +
+          '</div>';
+      }).join('');
+    }
+
+    function blank() { rows.innerHTML = '<div> </div><div> </div><div> </div>'; }
+
+    function show(text) { out.innerHTML = '<span class="tk-str">"' + text + '"</span>'; }
+
+    async function run() {
+      // Static result for anyone who asked for less motion.
+      if (reduced) {
+        cmd.textContent = PROMPT;
+        caret.style.display = 'none';
+        paint(STEPS[0], 0);
+        show('more agents, fewer demos');
+        return;
+      }
+
+      for (;;) {
+        cmd.textContent = '';
+        blank();
+        out.innerHTML = ' ';
+        await wait(1400);
+
+        for (var c = 0; c < PROMPT.length; c++) {
+          cmd.textContent += PROMPT[c];
+          await wait(32);
+        }
+        await wait(450);
+
+        var words = [];
+        for (var s = 0; s < STEPS.length; s++) {
+          paint(STEPS[s], -1);
+          await wait(420);
+          var k = pick(STEPS[s]);
+          paint(STEPS[s], k);
+          await wait(300);
+          words.push(STEPS[s][k][0]);
+          show(words.join(' ').replace(/ , /g, ', '));
+          await wait(180);
+        }
+        await wait(4200);
+      }
+    }
+
+    // Don't animate in a background tab.
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden && timer) clearTimeout(timer);
+    });
+
+    run();
+  })();
 
   /* ── Theme toggle (remembers choice, defaults to system) ── */
   var root = document.documentElement;
