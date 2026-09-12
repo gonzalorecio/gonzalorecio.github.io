@@ -286,8 +286,14 @@ html[data-theme="light"] .t4{color:#be185d}
 .attn th{font:500 11.5px/1.3 var(--mono);color:var(--muted);font-weight:500}
 .attn thead th{padding:0 0 6px;text-align:center;vertical-align:bottom}
 .attn tbody th{text-align:left;padding-right:12px;white-space:nowrap;color:var(--ink-soft);font-size:12.5px}
-.attn td{width:52px;height:27px;border-radius:6px;border:1px solid transparent;transition:transform .15s,border-color .15s}
-.attn td:hover{transform:scale(1.12);border-color:var(--line-hi)}
+.attn td{width:52px;height:27px;border-radius:6px;border:1px solid transparent;transition:transform .15s,border-color .15s,opacity .18s}
+.attn th{transition:opacity .18s,color .18s}
+/* Crosshair: dim everything off the hovered row and column, so the colour
+   encoding of the cells themselves is never altered. */
+.attn table.lit td,.attn table.lit th{opacity:.26}
+.attn table.lit .cross{opacity:1}
+.attn table.lit tbody th.cross,.attn table.lit thead th.cross{color:var(--accent-ink)}
+.attn td.hot{transform:scale(1.14);border-color:var(--accent)}
 .w0{background:color-mix(in srgb,var(--accent) 5%,transparent)}
 .w1{background:color-mix(in srgb,var(--accent) 18%,transparent)}
 .w2{background:color-mix(in srgb,var(--accent) 36%,transparent)}
@@ -570,6 +576,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
           <i class="w0"></i><i class="w1"></i><i class="w2"></i><i class="w3"></i><i class="w4"></i>
           <span>more</span>
         </div>
+        <p class="chart-read" id="attnRead">Hover a cell to read the pair.</p>
       </div>
 
       <div class="card reveal" style="margin-top:18px">
@@ -833,6 +840,56 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
     Object.keys(MAPS).forEach(function (id) {
       wire(document.getElementById(id), MAPS[id]);
     });
+  })();
+
+  /* ── Skills matrix crosshair: hovering a cell keeps its row and column lit
+        and dims the rest, then reads the pair out in words. ── */
+  (function attnMatrix() {
+    var table = document.querySelector('.attn table');
+    if (!table) return;
+    var read = document.getElementById('attnRead');
+    var BASE = read ? read.textContent : '';
+    var LEVELS = ['barely', 'occasionally', 'sometimes', 'often', 'all the time'];
+
+    var rows = Array.prototype.slice.call(table.querySelectorAll('tbody tr'));
+    var heads = Array.prototype.slice.call(table.querySelectorAll('thead th'));
+
+    function clear() {
+      table.classList.remove('lit');
+      table.querySelectorAll('.cross').forEach(function (e) { e.classList.remove('cross'); });
+      table.querySelectorAll('.hot').forEach(function (e) { e.classList.remove('hot'); });
+      if (read) read.textContent = BASE;
+    }
+
+    function level(td) {
+      var m = /(?:^|\s)w([0-4])(?:\s|$)/.exec(td.className);
+      return m ? +m[1] : 0;
+    }
+
+    rows.forEach(function (tr, r) {
+      var cells = Array.prototype.slice.call(tr.querySelectorAll('td'));
+      cells.forEach(function (td, c) {
+        td.addEventListener('mouseenter', function () {
+          clear();
+          table.classList.add('lit');
+          td.classList.add('hot', 'cross');
+          cells.forEach(function (x) { x.classList.add('cross'); });          // the row
+          rows.forEach(function (other) {                                      // the column
+            var t = other.querySelectorAll('td')[c];
+            if (t) t.classList.add('cross');
+          });
+          tr.querySelector('th').classList.add('cross');
+          if (heads[c + 1]) heads[c + 1].classList.add('cross');
+          if (read) {
+            read.textContent = tr.querySelector('th').textContent.trim() + ' × ' +
+              heads[c + 1].textContent.trim().replace(/\s+/g, ' ') +
+              ' — ' + LEVELS[level(td)];
+          }
+        });
+      });
+    });
+
+    table.addEventListener('mouseleave', clear);
   })();
 
   /* ── Graph neural network, one layer at a time. Information starts at a
