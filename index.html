@@ -232,34 +232,6 @@ html[data-theme="light"] .t4{color:#be185d}
 .tok:hover,.tok:focus-visible,.tok.active,
 .w:hover,.w:focus-visible,.w.active{background:var(--accent);color:#fff;box-shadow:0 4px 14px -4px var(--accent);outline:none}
 
-/* Predicted vs observed occupancy chart. */
-.chart{margin:0 0 20px;border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:18px 20px}
-.chart svg{width:100%;height:auto;display:block;cursor:crosshair}
-.chart .grid{stroke:var(--line);stroke-width:1}
-.chart .axis{font:500 10px/1 var(--mono);fill:var(--muted)}
-.chart .band{fill:color-mix(in srgb,var(--accent) 20%,transparent)}
-.chart .actual{fill:none;stroke:var(--ink-soft);stroke-width:1.4;opacity:.6}
-.chart .pred{fill:none;stroke:var(--accent);stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
-.chart .guide{stroke:var(--line-hi);stroke-width:1;stroke-dasharray:3 3;opacity:0}
-.chart .guide.on{opacity:1}
-.chart-read{margin-top:9px;font:500 11.5px/1.5 var(--mono);color:var(--ink-soft)}
-.chart-legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font:500 11px/1 var(--mono);color:var(--muted)}
-.chart-legend span{display:inline-flex;align-items:center;gap:6px}
-.chart-legend i{width:16px;height:3px;border-radius:2px;display:block}
-.sw-pred{background:var(--accent)}
-.sw-act{background:var(--ink-soft);opacity:.6}
-.sw-band{height:9px!important;background:color-mix(in srgb,var(--accent) 20%,transparent)}
-
-/* Graph neural network — neighbourhood aggregation. */
-.gnn{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--bg) 45%,transparent)}
-.gnn .gedge{stroke:var(--line-hi);stroke-width:1;transition:stroke .3s,stroke-width .3s}
-.gnn .gedge.on{stroke:var(--accent-2);stroke-width:2}
-.gnn .gnode{fill:var(--surface-hi);stroke:var(--line-hi);stroke-width:1.2;transition:fill .35s,stroke .35s,r .35s}
-.gnn .gnode.l0{fill:var(--accent-3);stroke:var(--accent-3)}
-.gnn .gnode.l1{fill:color-mix(in srgb,var(--accent) 82%,transparent);stroke:var(--accent)}
-.gnn .gnode.l2{fill:color-mix(in srgb,var(--accent) 52%,transparent);stroke:var(--accent)}
-.gnn .gnode.l3{fill:color-mix(in srgb,var(--accent) 28%,transparent);stroke:var(--line-hi)}
-
 /* Agent routing graph. */
 .graph{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--bg) 45%,transparent)}
 .graph .nlabel{font:500 9.5px/1 var(--mono);fill:var(--ink-soft);text-anchor:middle;dominant-baseline:middle}
@@ -315,7 +287,8 @@ html[data-theme="light"] .t4{color:#be185d}
 .job-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 10px}
 .job-head strong{font-size:16.5px;font-weight:650;letter-spacing:-.01em}
 .period{margin-left:auto;font:500 12.5px/1.5 var(--mono);color:var(--muted);white-space:nowrap}
-.company{color:var(--accent-ink);font-weight:550;font-size:14.5px}
+.company{display:inline-flex;align-items:center;gap:7px;color:var(--accent-ink);font-weight:550;font-size:14.5px}
+.clogo{width:17px;height:17px;flex:0 0 auto;object-fit:contain;display:block}
 .tl-item p{margin-top:10px;color:var(--ink-soft);font-size:14.5px}
 .tl-item .stack{margin-top:14px}
 @media(max-width:600px){.period{margin-left:0;width:100%}}
@@ -349,7 +322,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
 <noscript><style>
   /* Without JS nothing reveals itself, so show everything up front. */
   .reveal{opacity:1!important;transform:none!important}
-  .term,.gd,.gd-read,.graph,.gnn,.chart{display:none}
+  .term,.gd,.gd-read,.graph,.gnn{display:none}
 </style></noscript>
 </head>
 <body>
@@ -580,7 +553,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
           <i class="w0"></i><i class="w1"></i><i class="w2"></i><i class="w3"></i><i class="w4"></i>
           <span>more</span>
         </div>
-        <p class="chart-read" id="attnRead">Hover a cell to read the pair.</p>
+        <p class="gd-read" id="attnRead">Hover a cell to read the pair.</p>
       </div>
 
       <div class="card reveal" style="margin-top:18px">
@@ -614,7 +587,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
         <article class="card tl-item now reveal">
           <div class="job-head">
             <strong>AI Lead — Head of AI &amp; Innovation</strong>
-            <span class="company">Valeria</span>
+            <span class="company"><img class="clogo" src="data:image/png;base64,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" alt="" aria-hidden="true" width="17" height="17"/>Valeria</span>
             <span class="period">Oct 2025 — Present</span>
           </div>
           <p>Working on the AI side of an AI-native HR and payroll platform: multi-agent architecture, model selection and cross-provider failover, document-extraction pipelines, evaluation suites and LLM observability. Also helping shape the AI roadmap and grow a small team around it.</p>
@@ -627,7 +600,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
         <article class="card tl-item reveal">
           <div class="job-head">
             <strong>Artificial Intelligence &amp; Innovation</strong>
-            <span class="company">CaixaBank Tech</span>
+            <span class="company"><img class="clogo" src="data:image/png;base64,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" alt="" aria-hidden="true" width="17" height="17"/>CaixaBank Tech</span>
             <span class="period">Jan 2023 — Oct 2025</span>
           </div>
           <p>Technical lead and project manager for AI and innovation initiatives. Implemented models straight from research papers and prototyped applications to test whether they were worth pursuing. Worked on Generative AI solutions — NL2SQL, agents, automated workflows — and shared the results through internal and external talks.</p>
@@ -640,7 +613,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
         <article class="card tl-item reveal">
           <div class="job-head">
             <strong>Senior Data Scientist &amp; Technical Project Manager</strong>
-            <span class="company">inLab FIB — UPC</span>
+            <span class="company"><img class="clogo" src="data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='-29.809%20-29.81%20110.46%20110.46'><path%20fill='%23007bc0'%20d='m%2056.531%2C79.886%20h%20-2.055%20v%204.273%20h%202.113%20c%201.363%2C0%201.926%2C-1.074%201.891%2C-2.207%20-0.031%2C-1.105%20-0.468%2C-2.066%20-1.949%2C-2.066%20z%20M%2055.234%2C0%20C%2024.727%2C0%200%2C24.727%200%2C55.229%200%2C85.734%2024.727%2C110.46%2055.234%2C110.46%2085.733%2C110.46%20110.46%2C85.733%20110.46%2C55.229%20110.46%2C24.727%2085.733%2C0%2055.234%2C0%20z%20m%200.219%2C15.588%20c%204.358%2C0%207.882%2C3.537%207.882%2C7.889%200%2C4.352%20-3.523%2C7.885%20-7.882%2C7.885%20-4.352%2C0%20-7.883%2C-3.533%20-7.883%2C-7.885%200%2C-4.352%203.532%2C-7.889%207.883%2C-7.889%20z%20m%200%2C18.693%20c%204.358%2C0%207.882%2C3.518%207.882%2C7.877%200%2C4.352%20-3.523%2C7.883%20-7.882%2C7.883%20-4.352%2C0%20-7.883%2C-3.531%20-7.883%2C-7.883%200%2C-4.359%203.532%2C-7.877%207.883%2C-7.877%20z%20M%2036.293%2C15.588%20c%204.355%2C0%207.887%2C3.537%207.887%2C7.889%200%2C4.352%20-3.531%2C7.885%20-7.887%2C7.885%20-4.359%2C0%20-7.887%2C-3.533%20-7.887%2C-7.885%200%2C-4.352%203.528%2C-7.889%207.887%2C-7.889%20z%20m%200%2C18.693%20c%204.355%2C0%207.887%2C3.518%207.887%2C7.877%200%2C4.352%20-3.531%2C7.883%20-7.887%2C7.883%20-4.359%2C0%20-7.887%2C-3.531%20-7.887%2C-7.883%200%2C-4.359%203.528%2C-7.877%207.887%2C-7.877%20z%20m%200%2C19.172%20c%204.355%2C0%207.887%2C3.531%207.887%2C7.885%200%2C4.352%20-3.531%2C7.883%20-7.887%2C7.883%20-4.359%2C0%20-7.887%2C-3.531%20-7.887%2C-7.883%200%2C-4.354%203.528%2C-7.885%207.887%2C-7.885%20z%20m%209.285%2C33.53%20c%200%2C1.941%20-0.055%2C4.332%20-2.602%2C6.129%20-1.664%2C1.168%20-3.633%2C1.41%20-5.402%2C1.41%20-1.777%2C0%20-3.738%2C-0.242%20-5.41%2C-1.41%20-2.543%2C-1.797%20-2.613%2C-4.188%20-2.613%2C-6.129%20V%2075.907%20h%205.309%20v%2011.057%20c%200.02%2C1.051%200.117%2C1.879%200.934%2C2.547%200.563%2C0.469%201.047%2C0.621%201.789%2C0.629%200.719%2C-0.008%201.203%2C-0.16%201.762%2C-0.629%200.813%2C-0.668%200.922%2C-1.496%200.941%2C-2.547%20V%2075.907%20h%205.293%20v%2011.076%20z%20m%209.875%2C-33.53%20c%204.358%2C0%207.882%2C3.531%207.882%2C7.885%200%2C4.352%20-3.523%2C7.883%20-7.882%2C7.883%20-4.352%2C0%20-7.883%2C-3.531%20-7.883%2C-7.883%200%2C-4.354%203.532%2C-7.885%207.883%2C-7.885%20z%20m%205.62%2C33.753%20c%20-1.012%2C0.723%20-2.159%2C0.992%20-5.112%2C0.992%20l%20-1.535%2C-0.031%20v%205.969%20H%2049.801%20V%2075.907%20h%207.633%20c%203.722%2C0%206.022%2C2.242%206.022%2C6.271%200%2C2.161%20-0.844%2C3.966%20-2.383%2C5.028%20z%20m%2019.055%2C-5.789%20c%20-1.816%2C-1.516%20-2.531%2C-1.406%20-3.949%2C-1.406%20-2.766%2C0%20-4.688%2C2.102%20-4.688%2C5.094%200%2C3.008%201.949%2C5.09%204.711%2C5.09%201.5%2C0%202.242%2C-0.203%203.926%2C-1.441%20v%204.723%20c%20-1.746%2C0.852%20-2.734%2C1.094%20-4.414%2C1.094%20-5.508%2C0%20-9.387%2C-3.914%20-9.387%2C-9.465%200%2C-5.502%203.965%2C-9.58%209.332%2C-9.58%201.645%2C0%202.711%2C0.266%204.469%2C1.119%20v%204.772%20z%20M%2074.171%2C69.221%20c%20-4.359%2C0%20-7.887%2C-3.531%20-7.887%2C-7.883%200%2C-4.354%203.527%2C-7.885%207.887%2C-7.885%204.348%2C0%207.887%2C3.531%207.887%2C7.885%200%2C4.351%20-3.539%2C7.883%20-7.887%2C7.883%20z%20m%200%2C-19.18%20c%20-4.359%2C0%20-7.887%2C-3.531%20-7.887%2C-7.883%200%2C-4.359%203.527%2C-7.877%207.887%2C-7.877%204.348%2C0%207.887%2C3.518%207.887%2C7.877%200%2C4.352%20-3.539%2C7.883%20-7.887%2C7.883%20z%20m%200%2C-18.68%20c%20-4.359%2C0%20-7.887%2C-3.533%20-7.887%2C-7.885%200%2C-4.352%203.527%2C-7.889%207.887%2C-7.889%204.348%2C0%207.887%2C3.537%207.887%2C7.889%200%2C4.352%20-3.539%2C7.885%20-7.887%2C7.885%20z'/></svg>" alt="" aria-hidden="true" width="17" height="17"/>inLab FIB — UPC</span>
             <span class="period">Oct 2020 — Jan 2023</span>
           </div>
           <p>Managed and supervised multiple AI, Data Science and Optimization projects. Deployed ML/DL pipelines to the cloud for clients. Led teams building DNN/CNN/RNN/GAN models, YOLOv5 for image recognition and tracking, and metaheuristics/MiniZinc for scheduling problems served through APIs.</p>
@@ -653,7 +626,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
         <article class="card tl-item reveal">
           <div class="job-head">
             <strong>AI Researcher &amp; Data Scientist</strong>
-            <span class="company">inLab FIB — UPC</span>
+            <span class="company"><img class="clogo" src="data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='-29.809%20-29.81%20110.46%20110.46'><path%20fill='%23007bc0'%20d='m%2056.531%2C79.886%20h%20-2.055%20v%204.273%20h%202.113%20c%201.363%2C0%201.926%2C-1.074%201.891%2C-2.207%20-0.031%2C-1.105%20-0.468%2C-2.066%20-1.949%2C-2.066%20z%20M%2055.234%2C0%20C%2024.727%2C0%200%2C24.727%200%2C55.229%200%2C85.734%2024.727%2C110.46%2055.234%2C110.46%2085.733%2C110.46%20110.46%2C85.733%20110.46%2C55.229%20110.46%2C24.727%2085.733%2C0%2055.234%2C0%20z%20m%200.219%2C15.588%20c%204.358%2C0%207.882%2C3.537%207.882%2C7.889%200%2C4.352%20-3.523%2C7.885%20-7.882%2C7.885%20-4.352%2C0%20-7.883%2C-3.533%20-7.883%2C-7.885%200%2C-4.352%203.532%2C-7.889%207.883%2C-7.889%20z%20m%200%2C18.693%20c%204.358%2C0%207.882%2C3.518%207.882%2C7.877%200%2C4.352%20-3.523%2C7.883%20-7.882%2C7.883%20-4.352%2C0%20-7.883%2C-3.531%20-7.883%2C-7.883%200%2C-4.359%203.532%2C-7.877%207.883%2C-7.877%20z%20M%2036.293%2C15.588%20c%204.355%2C0%207.887%2C3.537%207.887%2C7.889%200%2C4.352%20-3.531%2C7.885%20-7.887%2C7.885%20-4.359%2C0%20-7.887%2C-3.533%20-7.887%2C-7.885%200%2C-4.352%203.528%2C-7.889%207.887%2C-7.889%20z%20m%200%2C18.693%20c%204.355%2C0%207.887%2C3.518%207.887%2C7.877%200%2C4.352%20-3.531%2C7.883%20-7.887%2C7.883%20-4.359%2C0%20-7.887%2C-3.531%20-7.887%2C-7.883%200%2C-4.359%203.528%2C-7.877%207.887%2C-7.877%20z%20m%200%2C19.172%20c%204.355%2C0%207.887%2C3.531%207.887%2C7.885%200%2C4.352%20-3.531%2C7.883%20-7.887%2C7.883%20-4.359%2C0%20-7.887%2C-3.531%20-7.887%2C-7.883%200%2C-4.354%203.528%2C-7.885%207.887%2C-7.885%20z%20m%209.285%2C33.53%20c%200%2C1.941%20-0.055%2C4.332%20-2.602%2C6.129%20-1.664%2C1.168%20-3.633%2C1.41%20-5.402%2C1.41%20-1.777%2C0%20-3.738%2C-0.242%20-5.41%2C-1.41%20-2.543%2C-1.797%20-2.613%2C-4.188%20-2.613%2C-6.129%20V%2075.907%20h%205.309%20v%2011.057%20c%200.02%2C1.051%200.117%2C1.879%200.934%2C2.547%200.563%2C0.469%201.047%2C0.621%201.789%2C0.629%200.719%2C-0.008%201.203%2C-0.16%201.762%2C-0.629%200.813%2C-0.668%200.922%2C-1.496%200.941%2C-2.547%20V%2075.907%20h%205.293%20v%2011.076%20z%20m%209.875%2C-33.53%20c%204.358%2C0%207.882%2C3.531%207.882%2C7.885%200%2C4.352%20-3.523%2C7.883%20-7.882%2C7.883%20-4.352%2C0%20-7.883%2C-3.531%20-7.883%2C-7.883%200%2C-4.354%203.532%2C-7.885%207.883%2C-7.885%20z%20m%205.62%2C33.753%20c%20-1.012%2C0.723%20-2.159%2C0.992%20-5.112%2C0.992%20l%20-1.535%2C-0.031%20v%205.969%20H%2049.801%20V%2075.907%20h%207.633%20c%203.722%2C0%206.022%2C2.242%206.022%2C6.271%200%2C2.161%20-0.844%2C3.966%20-2.383%2C5.028%20z%20m%2019.055%2C-5.789%20c%20-1.816%2C-1.516%20-2.531%2C-1.406%20-3.949%2C-1.406%20-2.766%2C0%20-4.688%2C2.102%20-4.688%2C5.094%200%2C3.008%201.949%2C5.09%204.711%2C5.09%201.5%2C0%202.242%2C-0.203%203.926%2C-1.441%20v%204.723%20c%20-1.746%2C0.852%20-2.734%2C1.094%20-4.414%2C1.094%20-5.508%2C0%20-9.387%2C-3.914%20-9.387%2C-9.465%200%2C-5.502%203.965%2C-9.58%209.332%2C-9.58%201.645%2C0%202.711%2C0.266%204.469%2C1.119%20v%204.772%20z%20M%2074.171%2C69.221%20c%20-4.359%2C0%20-7.887%2C-3.531%20-7.887%2C-7.883%200%2C-4.354%203.527%2C-7.885%207.887%2C-7.885%204.348%2C0%207.887%2C3.531%207.887%2C7.885%200%2C4.351%20-3.539%2C7.883%20-7.887%2C7.883%20z%20m%200%2C-19.18%20c%20-4.359%2C0%20-7.887%2C-3.531%20-7.887%2C-7.883%200%2C-4.359%203.527%2C-7.877%207.887%2C-7.877%204.348%2C0%207.887%2C3.518%207.887%2C7.877%200%2C4.352%20-3.539%2C7.883%20-7.887%2C7.883%20z%20m%200%2C-18.68%20c%20-4.359%2C0%20-7.887%2C-3.533%20-7.887%2C-7.885%200%2C-4.352%203.527%2C-7.889%207.887%2C-7.889%204.348%2C0%207.887%2C3.537%207.887%2C7.889%200%2C4.352%20-3.539%2C7.885%20-7.887%2C7.885%20z'/></svg>" alt="" aria-hidden="true" width="17" height="17"/>inLab FIB — UPC</span>
             <span class="period">Sep 2019 — Oct 2020</span>
           </div>
           <p>Routing optimization (CPLEX, metaheuristics) to improve car-sharing ratios. Built predictive models for bus passenger occupancy from large-scale ticket validation data. End-to-end ETLs and pipelines for recurring training and forecasting, with feature engineering and explainability.</p>
@@ -666,7 +639,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
         <article class="card tl-item reveal">
           <div class="job-head">
             <strong>Junior Researcher — Simulation &amp; Operations Research</strong>
-            <span class="company">inLab FIB — UPC</span>
+            <span class="company"><img class="clogo" src="data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='-29.809%20-29.81%20110.46%20110.46'><path%20fill='%23007bc0'%20d='m%2056.531%2C79.886%20h%20-2.055%20v%204.273%20h%202.113%20c%201.363%2C0%201.926%2C-1.074%201.891%2C-2.207%20-0.031%2C-1.105%20-0.468%2C-2.066%20-1.949%2C-2.066%20z%20M%2055.234%2C0%20C%2024.727%2C0%200%2C24.727%200%2C55.229%200%2C85.734%2024.727%2C110.46%2055.234%2C110.46%2085.733%2C110.46%20110.46%2C85.733%20110.46%2C55.229%20110.46%2C24.727%2085.733%2C0%2055.234%2C0%20z%20m%200.219%2C15.588%20c%204.358%2C0%207.882%2C3.537%207.882%2C7.889%200%2C4.352%20-3.523%2C7.885%20-7.882%2C7.885%20-4.352%2C0%20-7.883%2C-3.533%20-7.883%2C-7.885%200%2C-4.352%203.532%2C-7.889%207.883%2C-7.889%20z%20m%200%2C18.693%20c%204.358%2C0%207.882%2C3.518%207.882%2C7.877%200%2C4.352%20-3.523%2C7.883%20-7.882%2C7.883%20-4.352%2C0%20-7.883%2C-3.531%20-7.883%2C-7.883%200%2C-4.359%203.532%2C-7.877%207.883%2C-7.877%20z%20M%2036.293%2C15.588%20c%204.355%2C0%207.887%2C3.537%207.887%2C7.889%200%2C4.352%20-3.531%2C7.885%20-7.887%2C7.885%20-4.359%2C0%20-7.887%2C-3.533%20-7.887%2C-7.885%200%2C-4.352%203.528%2C-7.889%207.887%2C-7.889%20z%20m%200%2C18.693%20c%204.355%2C0%207.887%2C3.518%207.887%2C7.877%200%2C4.352%20-3.531%2C7.883%20-7.887%2C7.883%20-4.359%2C0%20-7.887%2C-3.531%20-7.887%2C-7.883%200%2C-4.359%203.528%2C-7.877%207.887%2C-7.877%20z%20m%200%2C19.172%20c%204.355%2C0%207.887%2C3.531%207.887%2C7.885%200%2C4.352%20-3.531%2C7.883%20-7.887%2C7.883%20-4.359%2C0%20-7.887%2C-3.531%20-7.887%2C-7.883%200%2C-4.354%203.528%2C-7.885%207.887%2C-7.885%20z%20m%209.285%2C33.53%20c%200%2C1.941%20-0.055%2C4.332%20-2.602%2C6.129%20-1.664%2C1.168%20-3.633%2C1.41%20-5.402%2C1.41%20-1.777%2C0%20-3.738%2C-0.242%20-5.41%2C-1.41%20-2.543%2C-1.797%20-2.613%2C-4.188%20-2.613%2C-6.129%20V%2075.907%20h%205.309%20v%2011.057%20c%200.02%2C1.051%200.117%2C1.879%200.934%2C2.547%200.563%2C0.469%201.047%2C0.621%201.789%2C0.629%200.719%2C-0.008%201.203%2C-0.16%201.762%2C-0.629%200.813%2C-0.668%200.922%2C-1.496%200.941%2C-2.547%20V%2075.907%20h%205.293%20v%2011.076%20z%20m%209.875%2C-33.53%20c%204.358%2C0%207.882%2C3.531%207.882%2C7.885%200%2C4.352%20-3.523%2C7.883%20-7.882%2C7.883%20-4.352%2C0%20-7.883%2C-3.531%20-7.883%2C-7.883%200%2C-4.354%203.532%2C-7.885%207.883%2C-7.885%20z%20m%205.62%2C33.753%20c%20-1.012%2C0.723%20-2.159%2C0.992%20-5.112%2C0.992%20l%20-1.535%2C-0.031%20v%205.969%20H%2049.801%20V%2075.907%20h%207.633%20c%203.722%2C0%206.022%2C2.242%206.022%2C6.271%200%2C2.161%20-0.844%2C3.966%20-2.383%2C5.028%20z%20m%2019.055%2C-5.789%20c%20-1.816%2C-1.516%20-2.531%2C-1.406%20-3.949%2C-1.406%20-2.766%2C0%20-4.688%2C2.102%20-4.688%2C5.094%200%2C3.008%201.949%2C5.09%204.711%2C5.09%201.5%2C0%202.242%2C-0.203%203.926%2C-1.441%20v%204.723%20c%20-1.746%2C0.852%20-2.734%2C1.094%20-4.414%2C1.094%20-5.508%2C0%20-9.387%2C-3.914%20-9.387%2C-9.465%200%2C-5.502%203.965%2C-9.58%209.332%2C-9.58%201.645%2C0%202.711%2C0.266%204.469%2C1.119%20v%204.772%20z%20M%2074.171%2C69.221%20c%20-4.359%2C0%20-7.887%2C-3.531%20-7.887%2C-7.883%200%2C-4.354%203.527%2C-7.885%207.887%2C-7.885%204.348%2C0%207.887%2C3.531%207.887%2C7.885%200%2C4.351%20-3.539%2C7.883%20-7.887%2C7.883%20z%20m%200%2C-19.18%20c%20-4.359%2C0%20-7.887%2C-3.531%20-7.887%2C-7.883%200%2C-4.359%203.527%2C-7.877%207.887%2C-7.877%204.348%2C0%207.887%2C3.518%207.887%2C7.877%200%2C4.352%20-3.539%2C7.883%20-7.887%2C7.883%20z%20m%200%2C-18.68%20c%20-4.359%2C0%20-7.887%2C-3.533%20-7.887%2C-7.885%200%2C-4.352%203.527%2C-7.889%207.887%2C-7.889%204.348%2C0%207.887%2C3.537%207.887%2C7.889%200%2C4.352%20-3.539%2C7.885%20-7.887%2C7.885%20z'/></svg>" alt="" aria-hidden="true" width="17" height="17"/>inLab FIB — UPC</span>
             <span class="period">Sep 2016 — Jan 2019</span>
           </div>
           <p>Smart mobility projects with Aimsun and Visum; hard-constrained vehicle routing optimization to minimise the required fleet size (CPLEX, metaheuristics).</p>
@@ -706,17 +679,6 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
         <div class="eyebrow">Peer-reviewed &amp; press</div>
         <h2 class="h2">Research</h2>
       </div>
-      <figure class="chart reveal" id="fcChart">
-        <figcaption class="side-label">Forecasting bus passenger occupancy — a weekday</figcaption>
-        <svg id="fcSvg" viewBox="0 0 720 210" role="img"
-             aria-label="Predicted versus observed bus occupancy across a weekday, with two commuter peaks in the morning and evening."></svg>
-        <div class="chart-legend">
-          <span><i class="sw-pred"></i> predicted</span>
-          <span><i class="sw-act"></i> observed</span>
-          <span><i class="sw-band"></i> ±1σ</span>
-        </div>
-        <p class="chart-read" id="fcRead">Two peaks, morning and evening — the commute. Hover to inspect a time of day.</p>
-      </figure>
 
       <div class="reveal" style="margin-bottom:16px">
         <a class="btn" href="https://scholar.google.com/citations?hl=en&amp;user=_gpRzjMAAAAJ" target="_blank" rel="noreferrer noopener">📖 Google Scholar profile ↗</a>
@@ -1073,128 +1035,6 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
       if (document.hidden) clearTimeout(timer);
     });
     run();
-  })();
-
-  /* ── Predicted vs observed bus occupancy across a weekday.
-        Two commuter peaks, a midday shoulder, and a ±1σ band around the
-        prediction. The observed series is the prediction plus deterministic
-        noise, so the picture is stable between loads. ── */
-  (function forecast() {
-    var svg = document.getElementById('fcSvg');
-    if (!svg) return;
-    var read = document.getElementById('fcRead');
-    var BASE_TEXT = read ? read.textContent : '';
-
-    var X0 = 44, X1 = 706, Y0 = 14, Y1 = 164;
-    var T0 = 6, T1 = 22.5, STEP = 0.25;
-    var svgns = 'http://www.w3.org/2000/svg';
-    function mk(tag, a) {
-      var e = document.createElementNS(svgns, tag);
-      Object.keys(a).forEach(function (k) { e.setAttribute(k, a[k]); });
-      return e;
-    }
-    function bump(t, mu, amp, sd) { return amp * Math.exp(-Math.pow(t - mu, 2) / (2 * sd * sd)); }
-    function model(t) {
-      return 0.07 + bump(t, 8.2, 0.92, 1.05) + bump(t, 18.4, 0.83, 1.35) + bump(t, 13.2, 0.3, 3.0);
-    }
-    // stable pseudo-noise so the chart looks the same every visit
-    function wobble(i) {
-      var s = Math.sin(i * 12.9898) * 43758.5453;
-      return (s - Math.floor(s)) - 0.5;
-    }
-
-    var pts = [];
-    for (var t = T0, i = 0; t <= T1 + 1e-9; t += STEP, i++) {
-      var m = model(t);
-      var sigma = 0.035 + 0.09 * m;
-      pts.push({ t: t, pred: m, act: Math.max(0.01, m + wobble(i) * sigma * 1.9), sd: sigma });
-    }
-    var MAXY = 1.12;
-    var sx = function (t) { return X0 + (t - T0) / (T1 - T0) * (X1 - X0); };
-    var sy = function (v) { return Y1 - (v / MAXY) * (Y1 - Y0); };
-    var line = function (key) {
-      return pts.map(function (p, k) { return (k ? 'L' : 'M') + sx(p.t).toFixed(1) + ' ' + sy(p[key]).toFixed(1); }).join(' ');
-    };
-
-    // horizontal grid
-    [0, 0.25, 0.5, 0.75, 1].forEach(function (v) {
-      svg.appendChild(mk('line', { class: 'grid', x1: X0, x2: X1, y1: sy(v), y2: sy(v), opacity: v === 0 ? 1 : 0.55 }));
-    });
-    // hour ticks
-    [6, 9, 12, 15, 18, 21].forEach(function (h) {
-      var lbl = mk('text', { class: 'axis', x: sx(h), y: Y1 + 18, 'text-anchor': 'middle' });
-      lbl.textContent = h + ':00';
-      svg.appendChild(lbl);
-    });
-    ['low', 'high'].forEach(function (s, k) {
-      var lbl = mk('text', { class: 'axis', x: X0 - 10, y: k ? sy(1) + 3 : sy(0) + 3, 'text-anchor': 'end' });
-      lbl.textContent = s;
-      svg.appendChild(lbl);
-    });
-
-    // ±1σ band
-    var up = pts.map(function (p, k) { return (k ? 'L' : 'M') + sx(p.t).toFixed(1) + ' ' + sy(p.pred + p.sd).toFixed(1); }).join(' ');
-    var down = pts.slice().reverse().map(function (p) { return 'L' + sx(p.t).toFixed(1) + ' ' + sy(Math.max(0, p.pred - p.sd)).toFixed(1); }).join(' ');
-    svg.appendChild(mk('path', { class: 'band', d: up + ' ' + down + ' Z' }));
-
-    var actual = mk('path', { class: 'actual', d: line('act') });
-    var pred = mk('path', { class: 'pred', d: line('pred') });
-    svg.appendChild(actual);
-    svg.appendChild(pred);
-
-    var guide = mk('line', { class: 'guide', y1: Y0, y2: Y1 });
-    var dotP = mk('circle', { r: 4, fill: 'var(--accent)', opacity: 0 });
-    var dotA = mk('circle', { r: 3, fill: 'var(--ink-soft)', opacity: 0 });
-    svg.appendChild(guide); svg.appendChild(dotP); svg.appendChild(dotA);
-
-    // Draw the two series in when the chart first scrolls into view.
-    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!reduced && 'IntersectionObserver' in window) {
-      [pred, actual].forEach(function (p) {
-        var L = p.getTotalLength();
-        p.style.strokeDasharray = L;
-        p.style.strokeDashoffset = L;
-      });
-      var io = new IntersectionObserver(function (es) {
-        es.forEach(function (e) {
-          if (!e.isIntersecting) return;
-          [actual, pred].forEach(function (p, k) {
-            p.style.transition = 'stroke-dashoffset 1.5s cubic-bezier(.25,.8,.3,1) ' + (k * 0.25) + 's';
-            p.style.strokeDashoffset = 0;
-          });
-          io.disconnect();
-        });
-      }, { threshold: 0.25 });
-      io.observe(svg);
-    }
-
-    function fmt(t) {
-      var h = Math.floor(t), m = Math.round((t - h) * 60);
-      return (h < 10 ? '0' : '') + h + ':' + (m ? m : '00');
-    }
-    function inspect(ev) {
-      var box = svg.getBoundingClientRect();
-      var vx = (ev.clientX - box.left) / box.width * 720;
-      var t = T0 + Math.min(1, Math.max(0, (vx - X0) / (X1 - X0))) * (T1 - T0);
-      var p = pts.reduce(function (a, b) { return Math.abs(b.t - t) < Math.abs(a.t - t) ? b : a; });
-      guide.classList.add('on');
-      guide.setAttribute('x1', sx(p.t)); guide.setAttribute('x2', sx(p.t));
-      dotP.setAttribute('cx', sx(p.t)); dotP.setAttribute('cy', sy(p.pred)); dotP.setAttribute('opacity', 1);
-      dotA.setAttribute('cx', sx(p.t)); dotA.setAttribute('cy', sy(p.act)); dotA.setAttribute('opacity', 1);
-      if (read) {
-        read.textContent = fmt(p.t) + ' · predicted ' + p.pred.toFixed(2) +
-                           ' · observed ' + p.act.toFixed(2) +
-                           ' · error ' + Math.abs(p.pred - p.act).toFixed(2);
-      }
-    }
-    function leave() {
-      guide.classList.remove('on');
-      dotP.setAttribute('opacity', 0);
-      dotA.setAttribute('opacity', 0);
-      if (read) read.textContent = BASE_TEXT;
-    }
-    svg.addEventListener('mousemove', inspect);
-    svg.addEventListener('mouseleave', leave);
   })();
 
   /* ── Agent routing graph. A request enters, the router picks one specialist
