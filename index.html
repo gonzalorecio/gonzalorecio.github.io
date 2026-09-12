@@ -991,7 +991,21 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
     var SEEDS = [6, 2, 0, 8];
     var turn = 0, timer;
 
-    function wait(ms) { return new Promise(function (r) { timer = setTimeout(r, ms); }); }
+    var pending = null;
+    function wait(ms) {
+      // Resumable: a background tab clears the timer, and coming back re-arms
+      // it. Clearing without re-arming would leave the await pending forever.
+      return new Promise(function (res) {
+        pending = { res: res, ms: ms };
+        timer = setTimeout(function () { pending = null; res(); }, ms);
+      });
+    }
+    function pauseWait() { if (pending) clearTimeout(timer); }
+    function resumeWait() {
+      if (!pending) return;
+      var p = pending;
+      timer = setTimeout(function () { pending = null; p.res(); }, p.ms);
+    }
 
     async function run() {
       if (reduced) {
@@ -1026,6 +1040,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
           if (!next.length) break;
           next.forEach(function (v) { nodeEls[v].setAttribute('class', 'gnode l' + Math.min(3, layer)); });
           if (read) read.textContent = layer + ' · ' + Object.keys(seen).length + ' of 9 nodes';
+          frontier = next;   // the next layer expands from the ring we just reached
           await wait(900);
         }
         await wait(2200);
@@ -1033,7 +1048,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
     }
 
     document.addEventListener('visibilitychange', function () {
-      if (document.hidden) clearTimeout(timer);
+      if (document.hidden) pauseWait(); else resumeWait();
     });
     run();
   })();
@@ -1124,7 +1139,22 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
       return;
     }
 
-    var timer;
+    var timer, pending = null;
+    function wait(ms) {
+      // Resumable: a background tab clears the timer, and coming back re-arms
+      // it. Clearing without re-arming would leave the await pending forever.
+      return new Promise(function (res) {
+        pending = { res: res, ms: ms };
+        timer = setTimeout(function () { pending = null; res(); }, ms);
+      });
+    }
+    function pauseWait() { if (pending) clearTimeout(timer); }
+    function resumeWait() {
+      if (!pending) return;
+      var p = pending;
+      timer = setTimeout(function () { pending = null; p.res(); }, p.ms);
+    }
+
     function glide(a, b, ms) {
       return new Promise(function (done) {
         var c = curve(a, b), p = c.p, t0 = performance.now();
@@ -1162,7 +1192,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
       for (;;) {
         clearAll();
         if (readout) readout.textContent = '—';
-        await new Promise(function (r) { timer = setTimeout(r, 700); });
+        await wait(700);
 
         var tools = TOOLKIT[run++ % TOOLKIT.length];
         var used = [];
@@ -1187,12 +1217,12 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
 
         if (readout) readout.textContent = used.join(' → ') + ' → answer';
         await glide('observe', 'answer', 380);
-        await new Promise(function (r) { timer = setTimeout(r, 2400); });
+        await wait(2400);
       }
     }
 
     document.addEventListener('visibilitychange', function () {
-      if (document.hidden) clearTimeout(timer);
+      if (document.hidden) pauseWait(); else resumeWait();
     });
     loop();
   })();
@@ -1281,8 +1311,12 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
       lossOut.textContent = p[2].toFixed(3);
       timer = setTimeout(frame, 55);
     }
+    var paused = false;
     document.addEventListener('visibilitychange', function () {
-      if (document.hidden) clearTimeout(timer);
+      // Plain recursive timer here, so pause by clearing and resume by
+      // calling frame() again rather than leaving it dead.
+      if (document.hidden) { clearTimeout(timer); paused = true; }
+      else if (paused) { paused = false; frame(); }
     });
     frame();
   })();
@@ -1319,9 +1353,20 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
     ];
 
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var timer = null;
+    var timer = null, pending = null;
     function wait(ms) {
-      return new Promise(function (res) { timer = setTimeout(res, ms); });
+      // Resumable: a background tab clears the timer, and coming back re-arms
+      // it. Clearing without re-arming would leave the await pending forever.
+      return new Promise(function (res) {
+        pending = { res: res, ms: ms };
+        timer = setTimeout(function () { pending = null; res(); }, ms);
+      });
+    }
+    function pauseWait() { if (pending) clearTimeout(timer); }
+    function resumeWait() {
+      if (!pending) return;
+      var p = pending;
+      timer = setTimeout(function () { pending = null; p.res(); }, p.ms);
     }
 
     function pick(dist) {
@@ -1440,9 +1485,8 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
       }
     }
 
-    // Don't animate in a background tab.
     document.addEventListener('visibilitychange', function () {
-      if (document.hidden && timer) clearTimeout(timer);
+      if (document.hidden) pauseWait(); else resumeWait();
     });
 
     run();
