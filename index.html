@@ -199,17 +199,19 @@ html[data-theme="light"] .term{background:#fff}
 .tk-dim{color:var(--muted)}
 
 /* ─────────────────────────  Projects  ───────────────────────── */
-.feature{display:grid;gap:0;grid-template-columns:1fr;border:1px solid var(--line);background:var(--surface);border-radius:20px;overflow:hidden;margin-bottom:18px;transition:border-color .22s,background .22s}
+.feature{display:grid;gap:0;grid-template-columns:1fr;border:1px solid var(--line);background:var(--surface);border-radius:16px;overflow:hidden;margin-bottom:14px;transition:border-color .22s,background .22s}
 .feature:hover{border-color:var(--line-hi);background:var(--surface-hi)}
-@media(min-width:860px){.feature{grid-template-columns:1.25fr .75fr}}
-.feature-main{padding:28px}
-.feature-side{padding:28px;border-top:1px solid var(--line);background:color-mix(in srgb,var(--bg) 55%,transparent)}
-@media(min-width:860px){.feature-side{border-top:0;border-left:1px solid var(--line)}}
-.feature h3{font-size:20px;letter-spacing:-.015em}
-.badge{display:inline-flex;align-items:center;gap:6px;font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-3);border:1px solid color-mix(in srgb,var(--accent-3) 35%,transparent);background:color-mix(in srgb,var(--accent-3) 12%,transparent);border-radius:999px;padding:5px 10px;margin-bottom:14px}
-.bullets{list-style:none;display:grid;gap:10px;margin-top:16px}
-.bullets li{position:relative;padding-left:22px;font-size:14.5px;color:var(--ink-soft)}
-.bullets li::before{content:"▸";position:absolute;left:0;top:-1px;color:var(--accent);font-size:13px}
+@media(min-width:860px){.feature{grid-template-columns:1.4fr .6fr}}
+.feature-main{padding:20px 22px}
+.feature-side{padding:18px 22px;border-top:1px solid var(--line);background:color-mix(in srgb,var(--bg) 55%,transparent)}
+@media(min-width:860px){.feature-side{padding:20px 22px;border-top:0;border-left:1px solid var(--line)}}
+.feature h3{font-size:17.5px;letter-spacing:-.015em;margin:0}
+.feature-main>p{margin-top:7px;font-size:14px;line-height:1.6}
+.badge{display:inline-flex;align-items:center;gap:6px;font:600 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-3);border:1px solid color-mix(in srgb,var(--accent-3) 35%,transparent);background:color-mix(in srgb,var(--accent-3) 12%,transparent);border-radius:999px;padding:4px 9px;margin-bottom:9px}
+.side-label{font:600 11px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin:0 0 10px}
+.bullets{list-style:none;display:grid;gap:6px;margin-top:11px}
+.bullets li{position:relative;padding-left:19px;font-size:14px;line-height:1.55;color:var(--ink-soft)}
+.bullets li::before{content:"▸";position:absolute;left:0;top:0;color:var(--accent);font-size:12px}
 /* ─────────────────────────  Stack section  ───────────────────────── */
 .stack-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
 .stack-card h3{display:flex;align-items:center;gap:9px;font:600 13px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:14px}
@@ -317,7 +319,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
 <div>epoch <span class="tk-num">2019</span>: 100%|<span class="tk-str">████████</span>| deep learning</div>
 <div>epoch <span class="tk-num">2021</span>: 100%|<span class="tk-str">████████</span>| computer vision</div>
 <div>epoch <span class="tk-num">2023</span>: 100%|<span class="tk-str">████████</span>| generative AI</div>
-<div>epoch <span class="tk-num" id="epYear">2026</span>: <span id="epPct"> 70%</span>|<span class="tk-str" id="epBar">█████▌</span><span class="tk-dim" id="epPad">  </span>| llm agents</div>
+<div>epoch <span class="tk-num" id="epYear">2026</span>:  75%|<span class="tk-str">██████</span><span class="tk-dim">  </span>| llm agents</div>
 <div> </div>
 <div><span class="tk-dim">&gt;&gt;&gt;</span> <span class="tk-dim"># still training, no early stopping</span></div>
         </div>
@@ -331,7 +333,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
       <div class="reveal">
         <div class="eyebrow">Overview</div>
         <h2 class="h2">What I like working on</h2>
-        <p class="muted" style="max-width:62ch;margin:-14px 0 30px;font-size:15.5px">Three themes keep coming back across everything I've worked on. They're not separate careers — mostly the same instinct applied to different problems.</p>
+        <p class="muted" style="max-width:62ch;margin:-16px 0 24px;font-size:15px">Three themes that keep coming back — mostly the same instinct applied to different problems.</p>
       </div>
 
       <!-- Theme: agents -->
@@ -339,22 +341,19 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
         <div class="feature-main">
           <span class="badge">● Current focus</span>
           <h3>LLM agents that reach real users</h3>
-          <p class="muted" style="margin-top:10px;font-size:14.5px">Most of my time right now goes into conversational AI systems at <strong class="soft">Valeria</strong>, where the product surface <em>is</em> the conversation. It's the part of the field I find hardest and most interesting: a demo is easy, a system people rely on daily is not.</p>
+          <p class="muted">Conversational AI systems at <strong class="soft">Valeria</strong>, where the product surface <em>is</em> the conversation. A demo is easy; something people rely on daily is not.</p>
           <ul class="bullets">
-            <li>Designing multi-agent architectures — specialised agents per flow rather than one prompt trying to do everything.</li>
-            <li>Model selection and routing across providers, with failover, because no single vendor stays up forever.</li>
-            <li>Document understanding: turning messy, real-world PDFs into structured and validated data.</li>
-            <li>Evaluation and observability — I've learned the hard way that "it feels better" doesn't survive contact with production.</li>
-            <li>Guardrails and human-in-the-loop gates wherever an action can't be undone.</li>
+            <li>Multi-agent architectures — specialised agents per flow, not one prompt doing everything.</li>
+            <li>Model routing across providers with failover, and document understanding over messy real-world PDFs.</li>
+            <li>Evaluation, observability and human-in-the-loop gates wherever an action can't be undone.</li>
           </ul>
         </div>
         <div class="feature-side">
-          <h3 style="font:600 12px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)">Usually with</h3>
-          <div class="stack" style="margin-top:12px">
+          <p class="side-label">Usually with</p>
+          <div class="stack">
             <span class="tag">Python</span><span class="tag">LangChain</span><span class="tag">Claude</span>
             <span class="tag">GPT</span><span class="tag">Gemini</span><span class="tag">RAG</span>
-            <span class="tag">Evals</span><span class="tag">OpenTelemetry</span><span class="tag">Feature flags</span>
-            <span class="tag">Postgres</span><span class="tag">Azure</span><span class="tag">GCP</span>
+            <span class="tag">Evals</span><span class="tag">OpenTelemetry</span><span class="tag">Azure</span><span class="tag">GCP</span>
           </div>
         </div>
       </article>
@@ -364,17 +363,16 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
         <div class="feature-main">
           <span class="badge" style="color:var(--accent-2);border-color:color-mix(in srgb,var(--accent-2) 35%,transparent);background:color-mix(in srgb,var(--accent-2) 12%,transparent)">Recurring theme</span>
           <h3>Getting research out of the paper</h3>
-          <p class="muted" style="margin-top:10px;font-size:14.5px">A lot of my work has been reading something promising and finding out what it takes to make it run on real data. Several years of that, much of it in enterprise R&amp;D. The gap between a published result and a working prototype is where I've learned the most.</p>
+          <p class="muted">Reading something promising and finding out what it takes to run it on real data — several years of that, much of it in enterprise R&amp;D. The gap between a published result and a working prototype is where I've learned the most.</p>
           <ul class="bullets">
-            <li>NL2SQL, so non-technical teams could ask questions of a warehouse in plain language.</li>
-            <li>Agentic workflows for multi-step internal processes.</li>
-            <li>Graph neural networks over relational data for detection and ranking tasks.</li>
+            <li>NL2SQL, so non-technical teams could query a warehouse in plain language.</li>
+            <li>Agentic workflows for multi-step internal processes, and GNNs over relational data.</li>
             <li>A path I keep reusing: paper → notebook → API → something a team can try.</li>
           </ul>
         </div>
         <div class="feature-side">
-          <h3 style="font:600 12px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)">Usually with</h3>
-          <div class="stack" style="margin-top:12px">
+          <p class="side-label">Usually with</p>
+          <div class="stack">
             <span class="tag">LangChain</span><span class="tag">PyTorch</span><span class="tag">GNNs</span>
             <span class="tag">NL2SQL</span><span class="tag">FastAPI</span><span class="tag">Docker</span>
             <span class="tag">GCP</span><span class="tag">AWS</span><span class="tag">MLOps</span>
@@ -387,17 +385,16 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
         <div class="feature-main">
           <span class="badge" style="color:var(--accent);border-color:color-mix(in srgb,var(--accent) 35%,transparent);background:color-mix(in srgb,var(--accent) 12%,transparent)">Where I started</span>
           <h3>Optimization &amp; forecasting</h3>
-          <p class="muted" style="margin-top:10px;font-size:14.5px">I came up through operations research at <strong class="soft">inLab FIB — UPC</strong>, working on how a city moves. I still reach for these tools more often than people expect — plenty of problems labelled "AI" turn out to be constraint problems in disguise.</p>
+          <p class="muted">I came up through operations research at <strong class="soft">inLab FIB — UPC</strong>, working on how a city moves. I still reach for these tools more often than people expect — plenty of problems labelled "AI" are constraint problems in disguise.</p>
           <ul class="bullets">
-            <li>Forecasting bus passenger occupancy from millions of ticket validations, with feature engineering and explainability.</li>
-            <li>Hard-constrained vehicle routing to reduce the fleet needed, using CPLEX and custom metaheuristics.</li>
+            <li>Forecasting bus passenger occupancy from millions of ticket validations.</li>
+            <li>Hard-constrained vehicle routing to reduce the fleet needed, with CPLEX and metaheuristics.</li>
             <li>Shared-taxi routing for people with reduced mobility, tested on a Barcelona case study.</li>
-            <li>Detection and tracking pipelines, and scheduling problems served over APIs.</li>
           </ul>
         </div>
         <div class="feature-side">
-          <h3 style="font:600 12px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)">Usually with</h3>
-          <div class="stack" style="margin-top:12px">
+          <p class="side-label">Usually with</p>
+          <div class="stack">
             <span class="tag">TensorFlow</span><span class="tag">Keras</span><span class="tag">YOLOv5</span>
             <span class="tag">CPLEX</span><span class="tag">MiniZinc</span><span class="tag">Metaheuristics</span>
             <span class="tag">Time series</span><span class="tag">ETL</span>
@@ -617,31 +614,9 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
   var y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
 
-  /* ── Current epoch in the terminal card: a tqdm-style bar showing how far
-        through the current year we actually are. Keeps itself honest. ── */
-  (function drawEpoch() {
-    var bar = document.getElementById('epBar');
-    var pad = document.getElementById('epPad');
-    var pct = document.getElementById('epPct');
-    var yr = document.getElementById('epYear');
-    if (!bar || !pad || !pct || !yr) return;
-
-    var now = new Date();
-    var start = new Date(now.getFullYear(), 0, 1);
-    var end = new Date(now.getFullYear() + 1, 0, 1);
-    var frac = (now - start) / (end - start);
-
-    var CELLS = 8;
-    var EIGHTHS = ['', '▏', '▎', '▍', '▌', '▋', '▊', '▉'];
-    var filled = frac * CELLS;
-    var full = Math.floor(filled);
-    var part = EIGHTHS[Math.floor((filled - full) * 8)];
-
-    yr.textContent = now.getFullYear();
-    pct.textContent = ('   ' + Math.floor(frac * 100) + '%').slice(-4);
-    bar.textContent = new Array(full + 1).join('█') + part;
-    pad.textContent = new Array(Math.max(0, CELLS - full - (part ? 1 : 0)) + 1).join(' ');
-  })();
+  /* ── Keep the current epoch's year label in step with the calendar. ── */
+  var epYear = document.getElementById('epYear');
+  if (epYear) epYear.textContent = new Date().getFullYear();
 
   /* ── Theme toggle (remembers choice, defaults to system) ── */
   var root = document.documentElement;
