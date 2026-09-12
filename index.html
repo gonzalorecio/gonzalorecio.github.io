@@ -230,6 +230,16 @@ html[data-theme="light"] .t4{color:#be185d}
 .hint{font:500 11.5px/1.4 var(--mono);color:var(--muted);letter-spacing:.04em;margin-bottom:26px}
 .hint::before{content:"↖ "}
 
+/* Agent routing graph. */
+.graph{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--bg) 45%,transparent)}
+.graph .nlabel{font:500 9.5px/1 var(--mono);fill:var(--ink-soft);text-anchor:middle;dominant-baseline:middle}
+.graph .nbox{fill:var(--surface-hi);stroke:var(--line-hi);stroke-width:1;rx:7}
+.graph .edge{stroke:var(--line-hi);stroke-width:1.2;fill:none}
+.graph .node.on .nbox{fill:color-mix(in srgb,var(--accent) 62%,transparent);stroke:var(--accent)}
+.graph .node.on .nlabel{fill:var(--ink)}
+.graph .edge.on{stroke:var(--accent-2);stroke-width:2}
+.graph .node .nbox,.graph .edge{transition:fill .25s,stroke .25s,stroke-width .25s}
+
 /* Gradient descent on a narrow valley — the classic zig-zag picture. */
 .gd{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--bg) 45%,transparent)}
 .gd-read{margin-top:8px;font:500 11.5px/1.4 var(--mono);color:var(--ink-soft)}
@@ -302,7 +312,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
 <noscript><style>
   /* Without JS nothing reveals itself, so show everything up front. */
   .reveal{opacity:1!important;transform:none!important}
-  .hint,.term,.gd,.gd-read{display:none}
+  .hint,.term,.gd,.gd-read,.graph{display:none}
 </style></noscript>
 </head>
 <body>
@@ -331,7 +341,14 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
       <div class="status"><span class="dot"></span> currently working on LLM agents</div>
       <h1 class="h1">Gonzalo Recio <span class="grad">Domènech</span></h1>
       <p class="role soft">Lead AI Engineer &amp; Data Scientist <span class="muted">@</span> <span class="grad">Valeria</span></p>
-      <p class="lede">I work on machine learning and, lately, on LLM agents that run in production. Before that: computer vision, time series and a fair amount of combinatorial optimization. I like problems where the research is interesting and someone actually ends up using the result.</p>
+      <p class="lede" id="heroText">I work on <span class="tok" data-k="ml" tabindex="0">machine learning</span> and, lately, on
+        <span class="tok" data-k="agents" tabindex="0">LLM agents</span> that run in
+        <span class="tok" data-k="production" tabindex="0">production</span>. Before that:
+        <span class="tok" data-k="vision" tabindex="0">computer vision</span>,
+        <span class="tok" data-k="series" tabindex="0">time series</span> and a fair amount of combinatorial
+        <span class="tok" data-k="optimization" tabindex="0">optimization</span>. I like problems where the
+        <span class="tok" data-k="research" tabindex="0">research</span> is interesting and someone actually ends up using the result.</p>
+      <p class="hint">hover a word to see what it attends to</p>
       <div class="stack" style="margin-top:22px">
         <span class="chip">🤖 LLM Agents</span>
         <span class="chip">🧠 Deep Learning</span>
@@ -395,7 +412,6 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
           <span class="tok" data-k="observable" tabindex="0">observable</span> in
           <span class="tok" data-k="production" tabindex="0">production</span> — the same loop I learned doing
           <span class="tok" data-k="optimization" tabindex="0">optimization</span>.</p>
-        <p class="hint">hover a word to see what it attends to</p>
       </div>
 
       <!-- Theme: agents -->
@@ -411,11 +427,15 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
           </ul>
         </div>
         <div class="feature-side">
-          <p class="side-label">Usually with</p>
+          <p class="side-label">One request, routed</p>
+          <svg class="graph" id="agentGraph" viewBox="0 0 260 330" role="img"
+               aria-label="A request travels from the user through a router to one specialist agent, then to tools, a human gate, and back as a reply."></svg>
+          <p class="gd-read"><span class="tk-dim">routed to</span> <span id="agRoute">—</span></p>
+          <p class="side-label" style="margin-top:16px">Usually with</p>
           <div class="stack">
             <span class="tag">Python</span><span class="tag">LangChain</span><span class="tag">Claude</span>
             <span class="tag">GPT</span><span class="tag">Gemini</span><span class="tag">RAG</span>
-            <span class="tag">Evals</span><span class="tag">OpenTelemetry</span><span class="tag">Azure</span><span class="tag">GCP</span>
+            <span class="tag">Evals</span><span class="tag">OpenTelemetry</span>
           </div>
         </div>
       </article>
@@ -723,41 +743,184 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
   /* ── Hover-to-attend. A hand-authored attention row per word: hovering one
         lights the others in proportion to how much it attends to them. ── */
   (function attendText() {
-    var host = document.getElementById('attnText');
-    if (!host) return;
 
-    var MAP = {
-      agents:       { conversation: .95, production: .72, evals: .64, documents: .55, observable: .42, optimization: .18 },
-      documents:    { agents: .74, evals: .42, conversation: .35, production: .22, observable: .18, optimization: .12 },
-      conversation: { agents: .95, production: .52, documents: .34, evals: .28, observable: .2, optimization: .1 },
-      evals:        { agents: .8, observable: .74, production: .6, documents: .36, conversation: .28, optimization: .3 },
-      observable:   { production: .9, evals: .74, agents: .5, conversation: .2, documents: .16, optimization: .2 },
-      production:   { agents: .82, observable: .8, evals: .55, conversation: .48, documents: .22, optimization: .24 },
-      optimization: { evals: .5, agents: .4, production: .36, observable: .3, documents: .2, conversation: .16 }
+    var MAPS = {
+      attnText: {
+        agents:       { conversation: .95, production: .72, evals: .64, documents: .55, observable: .42, optimization: .18 },
+        documents:    { agents: .74, evals: .42, conversation: .35, production: .22, observable: .18, optimization: .12 },
+        conversation: { agents: .95, production: .52, documents: .34, evals: .28, observable: .2, optimization: .1 },
+        evals:        { agents: .8, observable: .74, production: .6, documents: .36, conversation: .28, optimization: .3 },
+        observable:   { production: .9, evals: .74, agents: .5, conversation: .2, documents: .16, optimization: .2 },
+        production:   { agents: .82, observable: .8, evals: .55, conversation: .48, documents: .22, optimization: .24 },
+        optimization: { evals: .5, agents: .4, production: .36, observable: .3, documents: .2, conversation: .16 }
+      },
+      heroText: {
+        ml:           { vision: .82, series: .76, agents: .6, research: .5, optimization: .4, production: .3 },
+        agents:       { production: .92, ml: .6, research: .45, optimization: .2, vision: .15, series: .15 },
+        production:   { agents: .9, optimization: .42, ml: .35, series: .3, research: .25, vision: .2 },
+        vision:       { ml: .86, series: .4, research: .4, agents: .2, production: .2, optimization: .15 },
+        series:       { ml: .8, optimization: .56, vision: .4, research: .35, production: .3, agents: .15 },
+        optimization: { series: .56, research: .5, production: .45, ml: .4, agents: .2, vision: .15 },
+        research:     { ml: .6, optimization: .5, vision: .45, agents: .45, production: .4, series: .35 }
+      }
     };
 
-    var toks = Array.prototype.slice.call(host.querySelectorAll('.tok'));
+    function wire(host, map) {
+      if (!host) return;
+      var toks = Array.prototype.slice.call(host.querySelectorAll('.tok'));
 
-    function clear() {
-      toks.forEach(function (t) { t.style.background = ''; t.style.color = ''; });
-    }
+      function clear() {
+        toks.forEach(function (t) { t.style.background = ''; t.style.color = ''; });
+      }
 
-    function light(src) {
-      var row = MAP[src.dataset.k] || {};
+      function light(src) {
+        var row = map[src.dataset.k] || {};
+        toks.forEach(function (t) {
+          if (t === src) return;
+          var w = row[t.dataset.k] || 0;
+          t.style.background = 'color-mix(in srgb, var(--accent) ' + Math.round(w * 72) + '%, transparent)';
+          t.style.color = w > 0.55 ? 'var(--ink)' : '';
+        });
+      }
+
       toks.forEach(function (t) {
-        if (t === src) return;
-        var w = row[t.dataset.k] || 0;
-        t.style.background = 'color-mix(in srgb, var(--accent) ' + Math.round(w * 72) + '%, transparent)';
-        t.style.color = w > 0.55 ? 'var(--ink)' : '';
+        t.addEventListener('mouseenter', function () { light(t); });
+        t.addEventListener('focus', function () { light(t); });
+        t.addEventListener('mouseleave', clear);
+        t.addEventListener('blur', clear);
       });
     }
 
-    toks.forEach(function (t) {
-      t.addEventListener('mouseenter', function () { light(t); });
-      t.addEventListener('focus', function () { light(t); });
-      t.addEventListener('mouseleave', clear);
-      t.addEventListener('blur', clear);
+    Object.keys(MAPS).forEach(function (id) {
+      wire(document.getElementById(id), MAPS[id]);
     });
+  })();
+
+  /* ── Agent routing graph. A request enters, the router picks one specialist
+        (a different one each pass — that's the whole point of routing), it
+        calls tools, passes a human gate, and comes back as a reply. ── */
+  (function agentGraph() {
+    var svg = document.getElementById('agentGraph');
+    if (!svg) return;
+    var readout = document.getElementById('agRoute');
+
+    var N = {
+      user:    { x: 130, y: 22,  w: 84, label: 'user message' },
+      router:  { x: 130, y: 84,  w: 66, label: 'router' },
+      intake:  { x: 44,  y: 152, w: 68, label: 'intake' },
+      payroll: { x: 130, y: 152, w: 68, label: 'payroll' },
+      docs:    { x: 216, y: 152, w: 68, label: 'docs' },
+      tools:   { x: 130, y: 218, w: 80, label: 'tools · db' },
+      gate:    { x: 130, y: 266, w: 84, label: 'human gate' },
+      reply:   { x: 130, y: 310, w: 66, label: 'reply' }
+    };
+    var H = 22;
+    var EDGES = [
+      ['user', 'router'],
+      ['router', 'intake'], ['router', 'payroll'], ['router', 'docs'],
+      ['intake', 'tools'], ['payroll', 'tools'], ['docs', 'tools'],
+      ['tools', 'gate'], ['gate', 'reply']
+    ];
+
+    function anchor(a, b) {
+      // leave from the bottom of a, arrive at the top of b
+      return [{ x: N[a].x, y: N[a].y + H / 2 }, { x: N[b].x, y: N[b].y - H / 2 }];
+    }
+
+    var svgns = 'http://www.w3.org/2000/svg';
+    function mk(tag, attrs) {
+      var e = document.createElementNS(svgns, tag);
+      Object.keys(attrs).forEach(function (k) { e.setAttribute(k, attrs[k]); });
+      return e;
+    }
+
+    var edgeEls = {};
+    EDGES.forEach(function (e) {
+      var p = anchor(e[0], e[1]);
+      var mid = (p[0].y + p[1].y) / 2;
+      var d = 'M' + p[0].x + ' ' + p[0].y + ' C' + p[0].x + ' ' + mid + ' ' +
+              p[1].x + ' ' + mid + ' ' + p[1].x + ' ' + p[1].y;
+      var el = mk('path', { d: d, class: 'edge' });
+      edgeEls[e[0] + '>' + e[1]] = el;
+      svg.appendChild(el);
+    });
+
+    var nodeEls = {};
+    Object.keys(N).forEach(function (k) {
+      var n = N[k];
+      var g = mk('g', { class: 'node' });
+      g.appendChild(mk('rect', { class: 'nbox', x: n.x - n.w / 2, y: n.y - H / 2, width: n.w, height: H, rx: 7 }));
+      var t = mk('text', { class: 'nlabel', x: n.x, y: n.y + 0.5 });
+      t.textContent = n.label;
+      g.appendChild(t);
+      nodeEls[k] = g;
+      svg.appendChild(g);
+    });
+
+    var packet = mk('circle', { r: 4.5, fill: 'var(--accent-3)', opacity: 0 });
+    svg.appendChild(packet);
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+      ['user', 'router', 'payroll', 'tools', 'gate', 'reply'].forEach(function (k) {
+        nodeEls[k].classList.add('on');
+      });
+      if (readout) readout.textContent = 'payroll';
+      return;
+    }
+
+    var timer;
+    function glide(a, b, ms) {
+      return new Promise(function (done) {
+        var p = anchor(a, b), t0 = performance.now();
+        edgeEls[a + '>' + b].classList.add('on');
+        packet.setAttribute('opacity', 1);
+        (function step(now) {
+          var u = Math.min(1, (now - t0) / ms);
+          var e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+          var mid = (p[0].y + p[1].y) / 2;
+          // quadratic-ish along the same curve the edge draws
+          var x = (1 - e) * (1 - e) * p[0].x + 2 * (1 - e) * e * ((p[0].x + p[1].x) / 2) + e * e * p[1].x;
+          var y = (1 - e) * (1 - e) * p[0].y + 2 * (1 - e) * e * mid + e * e * p[1].y;
+          packet.setAttribute('cx', x);
+          packet.setAttribute('cy', y);
+          if (u < 1) requestAnimationFrame(step);
+          else { nodeEls[b].classList.add('on'); done(); }
+        })(t0);
+      });
+    }
+
+    function clearAll() {
+      Object.keys(nodeEls).forEach(function (k) { nodeEls[k].classList.remove('on'); });
+      Object.keys(edgeEls).forEach(function (k) { edgeEls[k].classList.remove('on'); });
+      packet.setAttribute('opacity', 0);
+    }
+
+    var SPECIALISTS = ['intake', 'payroll', 'docs'];
+    var turn = 0;
+
+    async function loop() {
+      for (;;) {
+        clearAll();
+        if (readout) readout.textContent = '—';
+        await new Promise(function (r) { timer = setTimeout(r, 700); });
+
+        var pickAgent = SPECIALISTS[turn++ % SPECIALISTS.length];
+        nodeEls.user.classList.add('on');
+        await glide('user', 'router', 420);
+        if (readout) readout.textContent = pickAgent;
+        await glide('router', pickAgent, 480);
+        await glide(pickAgent, 'tools', 480);
+        await glide('tools', 'gate', 380);
+        await glide('gate', 'reply', 380);
+        await new Promise(function (r) { timer = setTimeout(r, 2300); });
+      }
+    }
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) clearTimeout(timer);
+    });
+    loop();
   })();
 
   /* ── Gradient descent on f(x,y) = x² + 8y².
