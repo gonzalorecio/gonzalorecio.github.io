@@ -246,6 +246,16 @@ html[data-theme="light"] .t4{color:#be185d}
 .sw-act{background:var(--ink-soft);opacity:.6}
 .sw-band{height:9px!important;background:color-mix(in srgb,var(--accent) 20%,transparent)}
 
+/* Graph neural network — neighbourhood aggregation. */
+.gnn{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--bg) 45%,transparent)}
+.gnn .gedge{stroke:var(--line-hi);stroke-width:1;transition:stroke .3s,stroke-width .3s}
+.gnn .gedge.on{stroke:var(--accent-2);stroke-width:2}
+.gnn .gnode{fill:var(--surface-hi);stroke:var(--line-hi);stroke-width:1.2;transition:fill .35s,stroke .35s,r .35s}
+.gnn .gnode.l0{fill:var(--accent-3);stroke:var(--accent-3)}
+.gnn .gnode.l1{fill:color-mix(in srgb,var(--accent) 82%,transparent);stroke:var(--accent)}
+.gnn .gnode.l2{fill:color-mix(in srgb,var(--accent) 52%,transparent);stroke:var(--accent)}
+.gnn .gnode.l3{fill:color-mix(in srgb,var(--accent) 28%,transparent);stroke:var(--line-hi)}
+
 /* Agent routing graph. */
 .graph{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--bg) 45%,transparent)}
 .graph .nlabel{font:500 9.5px/1 var(--mono);fill:var(--ink-soft);text-anchor:middle;dominant-baseline:middle}
@@ -329,7 +339,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
 <noscript><style>
   /* Without JS nothing reveals itself, so show everything up front. */
   .reveal{opacity:1!important;transform:none!important}
-  .term,.gd,.gd-read,.graph,.chart{display:none}
+  .term,.gd,.gd-read,.graph,.gnn,.chart{display:none}
 </style></noscript>
 </head>
 <body>
@@ -469,11 +479,14 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
           </ul>
         </div>
         <div class="feature-side">
-          <p class="side-label">Usually with</p>
+          <p class="side-label">Message passing</p>
+          <svg class="gnn" id="gnn" viewBox="0 0 260 214" role="img"
+               aria-label="Information spreading outward from one node of a graph, one neighbourhood per layer, the way a graph neural network aggregates."></svg>
+          <p class="gd-read"><span class="tk-dim">layer</span> <span id="gnnRead">—</span></p>
+          <p class="side-label" style="margin-top:16px">Usually with</p>
           <div class="stack">
-            <span class="tag">LangChain</span><span class="tag">PyTorch</span><span class="tag">GNNs</span>
-            <span class="tag">NL2SQL</span><span class="tag">FastAPI</span><span class="tag">Docker</span>
-            <span class="tag">GCP</span><span class="tag">AWS</span><span class="tag">MLOps</span>
+            <span class="tag">PyTorch</span><span class="tag">GNNs</span><span class="tag">NL2SQL</span>
+            <span class="tag">LangChain</span><span class="tag">FastAPI</span><span class="tag">Docker</span>
           </div>
         </div>
       </article>
@@ -822,6 +835,104 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
     Object.keys(MAPS).forEach(function (id) {
       wire(document.getElementById(id), MAPS[id]);
     });
+  })();
+
+  /* ── Graph neural network, one layer at a time. Information starts at a
+        single node and each layer pulls in exactly the next ring of
+        neighbours — which is the whole idea and also its main limitation. ── */
+  (function gnn() {
+    var svg = document.getElementById('gnn');
+    if (!svg) return;
+    var read = document.getElementById('gnnRead');
+
+    var P = [
+      [40, 38], [124, 24], [212, 44],
+      [26, 106], [112, 94], [202, 114],
+      [50, 172], [132, 164], [216, 184]
+    ];
+    var E = [[0,1],[1,2],[0,3],[0,4],[1,4],[2,5],[3,4],[3,6],[4,5],[4,7],[5,8],[6,7],[7,8]];
+
+    var adj = P.map(function () { return []; });
+    E.forEach(function (e) { adj[e[0]].push(e[1]); adj[e[1]].push(e[0]); });
+
+    var svgns = 'http://www.w3.org/2000/svg';
+    function mk(t, a) {
+      var e = document.createElementNS(svgns, t);
+      Object.keys(a).forEach(function (k) { e.setAttribute(k, a[k]); });
+      return e;
+    }
+
+    var edgeEls = E.map(function (e) {
+      var el = mk('line', { class: 'gedge', x1: P[e[0]][0], y1: P[e[0]][1], x2: P[e[1]][0], y2: P[e[1]][1] });
+      svg.appendChild(el);
+      return el;
+    });
+    var nodeEls = P.map(function (p) {
+      var el = mk('circle', { class: 'gnode', cx: p[0], cy: p[1], r: 9 });
+      svg.appendChild(el);
+      return el;
+    });
+
+    function edgeIndex(a, b) {
+      for (var i = 0; i < E.length; i++) {
+        if ((E[i][0] === a && E[i][1] === b) || (E[i][0] === b && E[i][1] === a)) return i;
+      }
+      return -1;
+    }
+    function clearAll() {
+      nodeEls.forEach(function (n) { n.setAttribute('class', 'gnode'); n.setAttribute('r', 9); });
+      edgeEls.forEach(function (e) { e.setAttribute('class', 'gedge'); });
+    }
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var SEEDS = [6, 2, 0, 8];
+    var turn = 0, timer;
+
+    function wait(ms) { return new Promise(function (r) { timer = setTimeout(r, ms); }); }
+
+    async function run() {
+      if (reduced) {
+        nodeEls.forEach(function (n, i) { n.setAttribute('class', 'gnode l' + Math.min(3, i % 4)); });
+        if (read) read.textContent = '3 · all 9 nodes reached';
+        return;
+      }
+      for (;;) {
+        clearAll();
+        if (read) read.textContent = '—';
+        await wait(700);
+
+        var seed = SEEDS[turn++ % SEEDS.length];
+        var seen = {}; seen[seed] = true;
+        var frontier = [seed];
+        nodeEls[seed].setAttribute('class', 'gnode l0');
+        nodeEls[seed].setAttribute('r', 11);
+        if (read) read.textContent = '0 · 1 node';
+        await wait(850);
+
+        for (var layer = 1; layer <= 3 && frontier.length; layer++) {
+          var next = [];
+          frontier.forEach(function (u) {
+            adj[u].forEach(function (v) {
+              if (seen[v]) return;
+              seen[v] = true;
+              next.push(v);
+              var ei = edgeIndex(u, v);
+              if (ei >= 0) edgeEls[ei].setAttribute('class', 'gedge on');
+            });
+          });
+          if (!next.length) break;
+          next.forEach(function (v) { nodeEls[v].setAttribute('class', 'gnode l' + Math.min(3, layer)); });
+          if (read) read.textContent = layer + ' · ' + Object.keys(seen).length + ' of 9 nodes';
+          await wait(900);
+        }
+        await wait(2200);
+      }
+    }
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) clearTimeout(timer);
+    });
+    run();
   })();
 
   /* ── Predicted vs observed bus occupancy across a weekday.
