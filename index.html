@@ -223,10 +223,14 @@ html[data-theme="light"] .t4{color:#be185d}
 .side-label{font:600 11px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin:0 0 10px}
 /* Hover a word to light up what it attends to. */
 .attn-text{max-width:64ch;margin:-14px 0 10px;font-size:16.5px;line-height:2.05;color:var(--ink-soft)}
-.tok{border-radius:6px;padding:3px 5px;margin:0 -2px;cursor:default;color:var(--ink);
-  background:color-mix(in srgb,var(--accent) 9%,transparent);
-  transition:background .2s ease,color .2s ease,box-shadow .2s ease}
-.tok:hover,.tok:focus-visible{background:var(--accent);color:#fff;box-shadow:0 4px 14px -4px var(--accent);outline:none}
+.tok,.w{cursor:default;border-radius:6px;transition:background .26s ease,color .26s ease,box-shadow .26s ease}
+.tok{padding:3px 5px;margin:0 -2px;color:var(--ink);background:color-mix(in srgb,var(--accent) 9%,transparent)}
+/* Every word of the hero sentence becomes a token; negative margins cancel the
+   padding so wrapping stays exactly where it was. */
+.w{padding:2px 3px;margin:0 -3px}
+.w[data-k]{color:var(--ink);background:color-mix(in srgb,var(--accent) 9%,transparent)}
+.tok:hover,.tok:focus-visible,.tok.active,
+.w:hover,.w:focus-visible,.w.active{background:var(--accent);color:#fff;box-shadow:0 4px 14px -4px var(--accent);outline:none}
 
 /* Predicted vs observed occupancy chart. */
 .chart{margin:0 0 20px;border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:18px 20px}
@@ -811,35 +815,116 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
       }
     };
 
-    function wire(host, map) {
-      if (!host) return;
-      var toks = Array.prototype.slice.call(host.querySelectorAll('.tok'));
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      function clear() {
-        toks.forEach(function (t) { t.style.background = ''; t.style.color = ''; });
+    /* Split every remaining text node into word spans, leaving the authored
+       keyword spans in place. Keeps the markup plain for search and no-JS. */
+    function tokenize(host) {
+      var words = [];
+      Array.prototype.slice.call(host.childNodes).forEach(function (node) {
+        if (node.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          node.textContent.split(/(\s+)/).forEach(function (part) {
+            if (!part) return;
+            if (!part.trim()) { frag.appendChild(document.createTextNode(part)); return; }
+            var s = document.createElement('span');
+            s.className = 'w';
+            s.textContent = part;
+            frag.appendChild(s);
+            words.push(s);
+          });
+          host.replaceChild(frag, node);
+        } else if (node.nodeType === 1) {
+          node.classList.add('w');
+          words.push(node);
+        }
+      });
+      return words;
+    }
+
+    function wire(host, map, auto) {
+      if (!host) return;
+      var words = auto ? tokenize(host) : Array.prototype.slice.call(host.querySelectorAll('.tok'));
+      var hold = function () {}, resume = function () {};
+
+      /* Keyword pairs use the hand-written map. Everything else falls back to
+         a positional kernel: nearby words, with an extra pull toward content
+         words — roughly what attention on function words actually looks like. */
+      function weight(i, j) {
+        if (i === j) return 1;
+        var a = words[i].dataset.k, b = words[j].dataset.k;
+        if (a && b && map[a] && map[a][b] != null) return map[a][b];
+        var d = Math.abs(i - j);
+        var w = 0.5 * Math.exp(-d / 2.4);
+        if (b) w += 0.36 * Math.exp(-d / 6);
+        return Math.min(0.92, w);
       }
 
-      function light(src) {
-        var row = map[src.dataset.k] || {};
-        toks.forEach(function (t) {
-          if (t === src) return;
-          var w = row[t.dataset.k] || 0;
-          t.style.background = 'color-mix(in srgb, var(--accent) ' + Math.round(w * 72) + '%, transparent)';
+      function clear() {
+        words.forEach(function (t) {
+          t.style.background = '';
+          t.style.color = '';
+          t.classList.remove('active');
+        });
+      }
+
+      function light(i) {
+        words.forEach(function (t, j) {
+          if (j === i) {
+            // The active word is painted by CSS, so its inline styles must go —
+            // an inline background would otherwise outrank the class rule.
+            t.style.background = '';
+            t.style.color = '';
+            t.classList.add('active');
+            return;
+          }
+          t.classList.remove('active');
+          var w = weight(i, j);
+          t.style.background = w < 0.02 ? '' :
+            'color-mix(in srgb, var(--accent) ' + Math.round(w * 72) + '%, transparent)';
           t.style.color = w > 0.55 ? 'var(--ink)' : '';
         });
       }
 
-      toks.forEach(function (t) {
-        t.addEventListener('mouseenter', function () { light(t); });
-        t.addEventListener('focus', function () { light(t); });
-        t.addEventListener('mouseleave', clear);
-        t.addEventListener('blur', clear);
+      words.forEach(function (t, i) {
+        if (!t.hasAttribute('tabindex') && t.dataset.k) t.setAttribute('tabindex', '0');
+        t.addEventListener('mouseenter', function () { hold(); light(i); });
+        t.addEventListener('focus', function () { hold(); light(i); });
+        t.addEventListener('mouseleave', function () { clear(); resume(); });
+        t.addEventListener('blur', function () { clear(); resume(); });
       });
+
+      if (!auto || reduced) return;
+
+      /* Auto-play: a cursor walking the sentence word by word. */
+      var i = 0, timer = null, visible = true, held = false;
+      function tick() {
+        if (held || !visible) return;
+        var last = i === words.length - 1;
+        light(i);
+        i = (i + 1) % words.length;
+        timer = setTimeout(tick, last ? 1800 : 430);
+      }
+      function stop() { clearTimeout(timer); timer = null; }
+      function start() { if (!timer && !held && visible) timer = setTimeout(tick, 600); }
+
+      hold = function () { held = true; stop(); };
+      resume = function () { held = false; start(); };
+
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) {
+          visible = es[0].isIntersecting;
+          if (visible) start(); else stop();
+        }, { threshold: 0.15 }).observe(host);
+      }
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) stop(); else start();
+      });
+      start();
     }
 
-    Object.keys(MAPS).forEach(function (id) {
-      wire(document.getElementById(id), MAPS[id]);
-    });
+    wire(document.getElementById('heroText'), MAPS.heroText, true);
+    wire(document.getElementById('attnText'), MAPS.attnText, false);
   })();
 
   /* ── Skills matrix crosshair: hovering a cell keeps its row and column lit
