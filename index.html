@@ -213,7 +213,8 @@ html[data-theme="light"] .term{background:#fff}
 .badge{display:inline-flex;align-items:center;gap:6px;font:600 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-3);border:1px solid color-mix(in srgb,var(--accent-3) 35%,transparent);background:color-mix(in srgb,var(--accent-3) 12%,transparent);border-radius:999px;padding:4px 9px;margin-bottom:9px}
 .side-label{font:600 11px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin:0 0 10px}
 .edu{display:flex;flex-direction:column;gap:5px;padding:18px 20px}
-.edu strong{font-size:15.5px;font-weight:650;letter-spacing:-.01em}
+.edu strong{font-size:15.5px;font-weight:650;letter-spacing:-.01em;line-height:1.35}
+.edu .period{margin-left:0;margin-top:2px}
 .bullets{list-style:none;display:grid;gap:6px;margin-top:11px}
 .bullets li{position:relative;padding-left:19px;font-size:14px;line-height:1.55;color:var(--ink-soft)}
 .bullets li::before{content:"▸";position:absolute;left:0;top:0;color:var(--accent);font-size:12px}
@@ -329,7 +330,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
 <div><span class="tk-warn">UserWarning</span>: loss still decreasing</div>
 <div><span class="tk-dim">&gt;&gt;&gt;</span> me.summary()</div>
 <div>Trainable params:     <span class="tk-str">all of them</span></div>
-<div>Non-trainable params: <span class="tk-str">tabs vs spaces</span></div>
+<div>Non-trainable params: <span class="tk-str">opinions</span></div>
 <div> </div>
 <div><span class="tk-dim">&gt;&gt;&gt;</span> <span class="tk-dim"># no early stopping</span></div>
         </div>
@@ -549,14 +550,21 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
 
       <div class="reveal" style="margin-top:40px">
         <div class="eyebrow">Education</div>
-        <div class="grid g2" style="margin-top:18px">
+        <div class="grid g3" style="margin-top:18px">
           <div class="card edu">
             <strong>MSc in Artificial Intelligence</strong>
             <span class="company">Universitat Politècnica de Catalunya — UPC</span>
+            <span class="period">Sep 2019 — Feb 2021</span>
+          </div>
+          <div class="card edu">
+            <strong>Erasmus — CS, Statistics &amp; Data Science</strong>
+            <span class="company">Czech Technical University in Prague</span>
+            <span class="period">Feb — Jul 2019</span>
           </div>
           <div class="card edu">
             <strong>BSc in Computer Science</strong>
-            <span class="company">Facultat d'Informàtica de Barcelona — UPC</span>
+            <span class="company">Universitat Politècnica de Catalunya — UPC</span>
+            <span class="period">Sep 2014 — Jan 2019</span>
           </div>
         </div>
       </div>
