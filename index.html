@@ -227,8 +227,6 @@ html[data-theme="light"] .t4{color:#be185d}
   background:color-mix(in srgb,var(--accent) 9%,transparent);
   transition:background .2s ease,color .2s ease,box-shadow .2s ease}
 .tok:hover,.tok:focus-visible{background:var(--accent);color:#fff;box-shadow:0 4px 14px -4px var(--accent);outline:none}
-.hint{font:500 11.5px/1.4 var(--mono);color:var(--muted);letter-spacing:.04em;margin-bottom:26px}
-.hint::before{content:"↖ "}
 
 /* Agent routing graph. */
 .graph{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--bg) 45%,transparent)}
@@ -313,7 +311,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
 <noscript><style>
   /* Without JS nothing reveals itself, so show everything up front. */
   .reveal{opacity:1!important;transform:none!important}
-  .hint,.term,.gd,.gd-read,.graph{display:none}
+  .term,.gd,.gd-read,.graph{display:none}
 </style></noscript>
 </head>
 <body>
@@ -349,7 +347,6 @@ footer{border-top:1px solid var(--line);padding:26px 0 36px;font-size:13.5px;col
         <span class="tok" data-k="series" tabindex="0">time series</span> and a fair amount of combinatorial
         <span class="tok" data-k="optimization" tabindex="0">optimization</span>. I like problems where the
         <span class="tok" data-k="research" tabindex="0">research</span> is interesting and someone actually ends up using the result.</p>
-      <p class="hint">hover a word to see what it attends to</p>
       <div class="stack" style="margin-top:22px">
         <span class="chip">🤖 LLM Agents</span>
         <span class="chip">🧠 Deep Learning</span>
